@@ -116,7 +116,7 @@ def test_llm_failure_falls_back_to_rules(ledger):
 
 
 def test_openai_compatible_provider_swap():
-    s = Settings(sarvam_api_key=None, llm_provider="openai", llm_url="https://example.test/v1/chat/completions",
+    s = Settings(sarvam_api_key=None, force_mock=False, llm_provider="openai", llm_url="https://example.test/v1/chat/completions",
                  llm_model="some-model", openai_api_key="k")
     seen = {}
 
@@ -131,5 +131,5 @@ def test_openai_compatible_provider_swap():
 
 
 def test_no_key_means_mock_everything():
-    s = Settings(sarvam_api_key=None)
+    s = Settings(sarvam_api_key=None, force_mock=False)
     assert s.mock_audio and s.resolved_llm == "rules"

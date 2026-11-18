@@ -13,8 +13,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      KIRANA_MOCK: "1"        # offline: canned STT, rule parser, chime TTS
-      SARVAM_API_KEY: ""      # CI never uses a real key
+      SARVAM_API_KEY: ""      # CI never uses a real key; with no key everything runs in mock mode
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,7 +34,7 @@ jobs:
           node tests/js_parity.mjs
       - name: Server smoke test (mock mode)
         run: |
-          KIRANA_DB=/tmp/ci.db python -m uvicorn server.main:app --port 8000 &
+          KIRANA_MOCK=1 KIRANA_DB=/tmp/ci.db python -m uvicorn server.main:app --port 8000 &
           for i in $(seq 1 30); do curl -sf http://127.0.0.1:8000/health && break; sleep 1; done
           curl -sf -X POST http://127.0.0.1:8000/text -H 'Content-Type: application/json' \
             -d '{"text":"Ramesh ka 240 udhaar","speak":false}' | python -c "import sys,json; j=json.load(sys.stdin); assert j['actions'][0]['tool']=='add_credit', j"
