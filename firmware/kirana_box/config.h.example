@@ -1,0 +1,22 @@
+// Copy to config.h (git-ignored) and fill in.
+#pragma once
+
+#define WIFI_SSID   "your-wifi"
+#define WIFI_PASS   "your-password"
+// Laptop/server IP on the same Wi-Fi. Find it with `ipconfig` / `ip addr`.
+#define SERVER_URL  "http://192.168.1.50:8000/voice"
+
+// ESP32-S3 DevKitC-1 pins (any free GPIOs work; avoid 0, 3, 45, 46 strapping pins and 26-37 on N16R8 PSRAM boards)
+#define MIC_SCK     4
+#define MIC_WS      5
+#define MIC_SD      6
+#define AMP_BCLK    15
+#define AMP_LRC     16
+#define AMP_DIN     7
+#define BUTTON_PIN  1
+
+#define SAMPLE_RATE     16000   // must match what the server asks Bulbul for (TTS_SAMPLE_RATE, default 16000)
+#define MAX_SECONDS     15      // Sarvam REST STT handles < 30 s
+#define MIC_SHIFT       14      // 32-bit INMP441 sample >> MIC_SHIFT = 16-bit PCM. Lower = louder (try 12–16)
+#define VOLUME          0.6f    // 0.0–1.0 software volume
+#define HTTP_TIMEOUT_MS 30000
