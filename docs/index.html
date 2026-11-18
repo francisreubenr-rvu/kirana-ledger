@@ -7,8 +7,12 @@
 <meta name="description" content="A ₹1,000 push-to-talk box that keeps a kirana shop's udhaar, sales and stock from code-mixed Hinglish, Kannada, Tamil or Hindi speech. Sarvam Saaras + Sarvam 105B + Bulbul on an ESP32-S3.">
 <meta property="og:title" content="Kirana Voice Ledger">
 <meta property="og:description" content="Voice-first udhaar, sales and stock ledger for kirana shops. Try the in-browser demo.">
-<meta name="theme-color" content="#241c15">
+<meta name="theme-color" content="#1f3b45">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans+Kannada:wght@400;700&family=Noto+Sans+Tamil:wght@400;700&display=swap">
+<link rel="preload" href="assets/fonts/press-start-2p-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -26,7 +30,8 @@
 
 <header class="hero">
   <div class="wrap">
-    <h1>Keep the udhaar book<br>by speaking to it.</h1>
+   <div class="hero-panel">
+    <h1>Keep the udhaar book<br><span class="hl">by speaking to&nbsp;it.</span></h1>
     <p class="lead">A ₹1,000 push-to-talk box for the kirana counter. The owner holds a button, says one code-mixed sentence,
       and the credit book, stock and sales update. It answers back in the owner's own language.</p>
     <div class="quote">“Ramesh ka 240 udhaar, 2 Aashirvaad 5kg bik gaye.”
@@ -38,8 +43,10 @@
     <div class="badges" aria-label="Highlights">
       <span>Hinglish · हिन्दी · ಕನ್ನಡ · தமிழ் · English</span><span>Sarvam Saaras v4 · 105B · Bulbul v4</span><span>ESP32-S3</span><span>Works offline (rule fallback)</span>
     </div>
+   </div>
   </div>
 </header>
+<div class="clouds" aria-hidden="true"></div>
 
 <main>
 <section class="s" id="problem">
@@ -56,8 +63,13 @@
 
 <section class="s alt" id="how">
   <div class="wrap">
-    <h2>How it works</h2>
-    <p class="sub">One button, one sentence, any of four languages, often mixed. The box writes only what a typed tool allows and reads back exactly what it wrote.</p>
+    <div class="how-head">
+      <div>
+        <h2>How it works</h2>
+        <p class="sub">One button, one sentence, any of four languages, often mixed. The box writes only what a typed tool allows and reads back exactly what it wrote.</p>
+      </div>
+      <picture class="mascot"><source srcset="assets/device.webp" type="image/webp"><img src="assets/device.png" width="420" height="401" alt="Pixel-art voice box with a big red push-to-talk button, sitting on a grass tile beside a stack of coins and a sack of rice"></picture>
+    </div>
     <div class="grid g3">
       <div class="card"><div class="step-n">1</div><h3>Hold and speak</h3><p>The owner holds the button and talks naturally: <span class="say">“Lakshmi 300 kottru”</span>, <span class="say">“Murugan ku 200 kadan”</span>, <span class="say">“20 Maggi aaye”</span>.</p></div>
       <div class="card"><div class="step-n">2</div><h3>It understands</h3><p>Sarvam Saaras v4 transcribes in codemix mode with the shop's own customer and product names as keyterms. Sarvam 105B turns the sentence into ledger tool calls, several per sentence if needed.</p></div>
@@ -104,6 +116,8 @@
   <div class="wrap">
     <h2>Hardware: about ₹1,000</h2>
     <p class="sub">Rough Indian retail prices, November 2026, including GST and before shipping. Power comes from any USB phone charger.</p>
+    <div class="hw">
+    <div>
     <div class="table-scroll">
     <table class="t">
       <thead><tr><th>Part</th><th>Role</th><th>Approx. price</th></tr></thead>
@@ -119,6 +133,9 @@
     </table>
     </div>
     <p class="note">The firmware targets arduino-esp32 3.x (<code>ESP_I2S</code>). It has not yet been flashed onto hardware; see the repo's known limits. Wiring and flashing steps are in the <a href="https://github.com/francisreubenr-rvu/kirana-ledger#hardware">README</a>.</p>
+    </div>
+    <picture class="mascot"><source srcset="assets/device.webp" type="image/webp"><img src="assets/device.png" width="420" height="401" alt="The push-to-talk box: one red button, a mic, a small speaker"></picture>
+    </div>
   </div>
 </section>
 
@@ -128,10 +145,11 @@
     <p class="sub">The demo page runs the same offline parser, ledger and confirmation templates as the server, ported to JavaScript and checked against the Python code on every commit. Nothing is sent anywhere unless you connect your own backend.</p>
     <div class="btns">
       <a class="btn primary" href="demo.html">Open the live demo</a>
-      <a class="btn light" style="border-color:#241c15" href="https://github.com/francisreubenr-rvu/kirana-ledger#quick-start-offline-no-key">Run the server locally</a>
+      <a class="btn light" href="https://github.com/francisreubenr-rvu/kirana-ledger#quick-start-offline-no-key">Run the server locally</a>
     </div>
   </div>
 </section>
+<div class="clouds" aria-hidden="true"></div>
 
 <section class="s alt team" id="team">
   <div class="wrap">
@@ -147,7 +165,7 @@
 
 <footer>
   <div class="wrap">
-    <p><strong style="color:#fff">Kirana Voice Ledger</strong> · MIT licence · <a href="https://github.com/francisreubenr-rvu/kirana-ledger">Source on GitHub</a> · <a href="demo.html">Demo</a></p>
+    <p><strong>Kirana Voice Ledger</strong> · MIT licence · <a href="https://github.com/francisreubenr-rvu/kirana-ledger">Source on GitHub</a> · <a href="demo.html">Demo</a></p>
     <p>Prices in the demo catalogue are illustrative sample values, not live MRPs. Kannada and Tamil strings are pending a native-speaker review.</p>
   </div>
 </footer>
