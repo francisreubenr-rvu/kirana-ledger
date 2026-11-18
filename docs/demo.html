@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live demo — Kirana Voice Ledger</title>
+<meta name="description" content="Try the Kirana Voice Ledger in your browser: type or speak a Hinglish, Kannada or Tamil sentence and watch the udhaar book update.">
+<meta name="theme-color" content="#241c15">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="./">🧾 Kirana Voice Ledger</a>
+    <a class="l hide-sm" href="./#how">How it works</a>
+    <a class="l" href="https://github.com/francisreubenr-rvu/kirana-ledger">GitHub</a>
+  </div>
+</nav>
+
+<header class="demo-head">
+  <div class="wrap">
+    <h1>Live demo</h1>
+    <p>Type (or speak) what a shop owner would say at the counter. This page runs the project's offline rule parser,
+      ledger and confirmation templates entirely in your browser, and the ledger is saved in this browser only.
+      To try the real Sarvam pipeline, run the server and connect it below.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="demo">
+    <div>
+      <div class="panel">
+        <h2>Say something</h2>
+        <label class="lbl" for="utter">Utterance</label>
+        <textarea id="utter" placeholder="e.g. Ramesh ka 240 udhaar, 2 Aashirvaad 5kg bik gaye">Ramesh ka 240 udhaar, 2 Aashirvaad 5kg bik gaye</textarea>
+        <div class="row">
+          <button class="b accent" id="run" type="button">Run ▶</button>
+          <button class="b ghost" id="mic" type="button" hidden>🎤 Speak</button>
+        </div>
+        <div class="row">
+          <div>
+            <label class="lbl" for="lang">Reply language</label>
+            <select id="lang">
+              <option value="auto">Auto (same as spoken)</option>
+              <option value="hi">Hindi</option>
+              <option value="kn">Kannada</option>
+              <option value="ta">Tamil</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div>
+            <label class="lbl" for="speak">Read reply aloud</label>
+            <select id="speak"><option value="1">On</option><option value="0">Off</option></select>
+          </div>
+        </div>
+        <p class="kv" id="micnote" hidden></p>
+        <label class="lbl">Sample sentences (tap to run)</label>
+        <div class="chips" id="chips"><span class="kv">Loading samples…</span></div>
+      </div>
+
+      <div class="panel" aria-live="polite">
+        <h2>What it understood</h2>
+        <div class="kv" id="meta">Nothing yet. Press Run or tap a sample.</div>
+        <div class="act" id="acts"></div>
+        <p class="out-reply" id="reply"></p>
+        <div class="row"><button class="b ghost" id="replay" type="button" disabled>🔊 Play reply again</button></div>
+        <p class="kv" id="voicenote"></p>
+        <details><summary class="kv">Raw tool calls and results (JSON)</summary><pre class="json" id="raw">—</pre></details>
+      </div>
+
+      <div class="panel">
+        <h2>Connect a backend (optional)</h2>
+        <p class="kv">Run the FastAPI server (<code>./run.sh</code>) and paste its URL to send utterances to its <code>/text</code> endpoint instead.
+          With a <code>SARVAM_API_KEY</code> it uses Sarvam 105B for planning and Bulbul for the voice.
+          Browsers allow this page to call <code>http://localhost:8000</code>; for another machine, expose it over HTTPS (for example with a tunnel).</p>
+        <label class="lbl" for="backend">Backend URL</label>
+        <input type="url" id="backend" placeholder="http://localhost:8000" inputmode="url" autocomplete="off">
+        <div class="row">
+          <button class="b" id="connect" type="button">Connect</button>
+          <button class="b ghost" id="disconnect" type="button" disabled>Use in-browser mode</button>
+        </div>
+        <div id="bstatus" class="status info">Mode: in-browser (offline rule parser)</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="row" style="margin-top:0;align-items:center">
+          <h2 style="margin:0">Ledger</h2>
+          <span class="mode" id="modebadge" style="flex:0 0 auto;margin:0">in-browser</span>
+          <button class="b ghost" id="reset" type="button" style="flex:0 0 auto">Reset demo data</button>
+        </div>
+        <div class="grid2" style="margin-top:12px">
+          <div>
+            <h2>Udhaar (who owes)</h2>
+            <table class="d"><thead><tr><th>Customer</th><th style="text-align:right">Balance</th></tr></thead><tbody id="tcust"></tbody></table>
+          </div>
+          <div>
+            <h2>Stock</h2>
+            <table class="d"><thead><tr><th>Item</th><th style="text-align:right">Price</th><th style="text-align:right">Stock</th></tr></thead><tbody id="titems"></tbody></table>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Recent entries</h2>
+        <table class="d"><thead><tr><th>Time (IST)</th><th>Entry</th><th style="text-align:right">₹</th></tr></thead><tbody id="tlog"></tbody></table>
+      </div>
+      <div class="panel">
+        <div class="row" style="margin-top:0;align-items:center">
+          <h2 style="margin:0">Closing time</h2>
+          <select id="rlang" style="flex:0 1 210px;min-width:170px" aria-label="Reminder language">
+            <option value="hi">Reminders: Hindi</option><option value="kn">Reminders: Kannada</option>
+            <option value="ta">Reminders: Tamil</option><option value="en">Reminders: English</option>
+          </select>
+        </div>
+        <label class="lbl">Today's WhatsApp summary</label>
+        <div class="wa" id="wa">—</div>
+        <div class="row"><a class="b accent" id="washare" href="#" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;color:#fff">Share summary on WhatsApp</a></div>
+        <label class="lbl">Polite udhaar reminders</label>
+        <table class="d"><tbody id="trem"></tbody></table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><a href="./">Kirana Voice Ledger</a> · <a href="https://github.com/francisreubenr-rvu/kirana-ledger">Source</a> · Demo catalogue prices are illustrative, not live MRPs.</p>
+  </div>
+</footer>
+<script src="js/kirana-core.js"></script>
+<script src="js/demo.js"></script>
+</body>
+</html>

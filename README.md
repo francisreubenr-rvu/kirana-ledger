@@ -1,12 +1,40 @@
-# Kirana Voice Ledger (v0)
+# Kirana Voice Ledger
+
+[![CI](https://github.com/francisreubenr-rvu/kirana-ledger/actions/workflows/ci.yml/badge.svg)](https://github.com/francisreubenr-rvu/kirana-ledger/actions/workflows/ci.yml)
+[![Pages](https://github.com/francisreubenr-rvu/kirana-ledger/actions/workflows/pages/pages-build-deployment/badge.svg)](https://francisreubenr-rvu.github.io/kirana-ledger/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
+
+**Voice-first udhaar, sales and stock ledger for kirana shops.** Sarvam Saaras + Sarvam 105B + Bulbul on an ESP32-S3.
+Built for **India Runs on Voice 2026** (Scaler × Wispr Flow), Small Business track.
+
+### ▶ Live demo: https://francisreubenr-rvu.github.io/kirana-ledger/
+
+The [demo page](https://francisreubenr-rvu.github.io/kirana-ledger/demo.html) runs the offline parser, ledger and
+spoken confirmations entirely in your browser (no key, nothing sent anywhere). It can also connect to your own running
+server to use the real Sarvam pipeline.
 
 A push-to-talk box for the kirana counter. The owner holds a button and says
 *"Ramesh ka 240 udhaar, 2 Aashirvaad 5kg bik gaye"*. The box updates the credit book (udhaar), stock and sales,
 says a confirmation back in the owner's language, and at closing time produces a WhatsApp-ready day summary
 plus one-tap credit-reminder messages.
 
-Built for **India Runs on Voice** (Scaler × Wispr Flow), Small Business track. v0 is a reusable voice → tools
-pipeline that can be pointed at the Round 2 problem statement (released 27 Nov 2026); see `PITCH.md` for how.
+**Quick start (no API key needed):**
+
+```bash
+git clone https://github.com/francisreubenr-rvu/kirana-ledger.git && cd kirana-ledger
+python3 -m venv .venv && . .venv/bin/activate
+pip install -r requirements.txt
+pytest -q          # 88 tests, all offline
+./run.sh           # open http://localhost:8000
+```
+
+Add `SARVAM_API_KEY` to `.env` for real speech and the Sarvam 105B planner (see [With Sarvam](#with-sarvam-real-voice)).
+
+**Team:** [Francis Reuben R](https://github.com/francisreubenr-rvu) · [Varun Devaraj](https://github.com/varundevarajrvu)
+
+v0 is a reusable voice → tools pipeline that can be pointed at the Round 2 problem statement (released 27 Nov 2026);
+see `PITCH.md` for how.
 
 ```
                  ┌──────────────────────── counter box (ESP32-S3, ≈₹1,000) ────────────────────────┐
@@ -36,7 +64,7 @@ pipeline that can be pointed at the Round 2 problem statement (released 27 Nov 2
 cd kirana-ledger
 python3 -m venv .venv && . .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-pytest -q                                          # 85 tests
+pytest -q                                          # 88 tests
 ./run.sh                                           # or: python -m uvicorn server.main:app --host 0.0.0.0 --port 8000
 ```
 
@@ -151,8 +179,33 @@ web/           index.html: push-to-talk demo page (records → 16 kHz WAV in-bro
 firmware/      kirana_box/kirana_box.ino + config.h.example
 samples/       utterances.json: Hinglish / Hindi / Kannada / Tamil / English utterances + expected tool calls
 tests/         ledger, utterance set (parser + full agent), API (mock mode), provider request shapes (fake HTTP)
-scripts/       demo.py: the demo sequence over HTTP
+scripts/       demo.py: the demo sequence over HTTP · make_js_golden.py · check_site.py
+docs/          GitHub Pages site: landing page (index.html) + in-browser demo (demo.html, js/kirana-core.js)
+.github/       CI: pytest in mock mode, JS-vs-Python parity, server smoke test, site link check
 ```
+
+## The GitHub Pages demo
+
+`docs/` is served by GitHub Pages from `main`. `docs/js/kirana-core.js` is a line-by-line JavaScript port of
+`rule_parser.py`, `ledger.py` (state in `localStorage`), `messages.py` and `tools.py`, including difflib's
+fuzzy matching. To keep it honest:
+
+```bash
+python scripts/make_js_golden.py   # records what the Python code does for 56 utterances (24 samples + variants)
+node tests/js_parity.mjs           # the JS port must match: tool calls, language, spoken replies, final ledger
+python scripts/check_site.py       # no broken local links, anchors or assets
+```
+
+`pytest` runs the parity check too when `node` is installed. If you change the parser, ledger or templates,
+regenerate the golden file and port the change to `kirana-core.js`; CI fails otherwise. After editing
+`samples/utterances.json`, copy it to `docs/data/utterances.json`.
+
+**Connecting the demo to a server.** The page calls `<backend>/health`, `/text`, `/ledger`, `/summary`,
+`/reminders` and `/reset`. The server allows the Pages origin by default (`CORS_ORIGINS`, comma-separated, default
+`https://francisreubenr-rvu.github.io,http://localhost:8000,http://127.0.0.1:8000`) and answers Chrome's
+Private Network Access preflight, so `http://localhost:8000` works from the HTTPS page on the same machine.
+A server on another machine must be reached over HTTPS (for example a cloudflared or ngrok tunnel); browsers block
+plain-http calls from an HTTPS page.
 
 ## 2-minute demo script
 
@@ -182,3 +235,9 @@ Backup if the network fails: `KIRANA_MOCK=1 ./run.sh` and run the same lines thr
 - The Kannada and Tamil confirmation/reminder strings need a native-speaker check.
 - No undo yet ("galti, cancel karo"). It's the obvious next tool.
 - Single shop, single device, no auth. Use on a LAN only.
+- The browser demo's voice uses the browser's own speech synthesis; many desktop browsers have no Kannada or Tamil
+  voice, so those replies may be silent there. The box itself uses Bulbul.
+
+## License
+
+[MIT](LICENSE) © 2026 Francis Reuben R

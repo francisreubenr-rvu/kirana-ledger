@@ -1,8 +1,20 @@
+# Python
 .venv/
+venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Local data and secrets: never commit
 *.db
 *.db-journal
 .env
+.env.*
+!.env.example
 firmware/kirana_box/config.h
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+node_modules/

@@ -1,0 +1,1557 @@
+{
+ "seed_customers": [
+  "Lakshmi",
+  "Suresh",
+  "Fatima",
+  "Murugan",
+  "Ramesh"
+ ],
+ "parses": [
+  {
+   "text": "Ramesh ka 240 udhaar, 2 Aashirvaad 5kg bik gaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 240.0
+     }
+    },
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Aashirvaad Atta 5kg",
+      "qty": 2.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi ne 500 jama kiye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 500.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh ka kitna baaki hai",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     }
+    }
+   ]
+  },
+  {
+   "text": "20 Maggi aaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 20.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "aaj ka hisaab batao",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "daily_summary",
+     "args": {}
+    }
+   ]
+  },
+  {
+   "text": "Fatima ko 3 Parle-G udhaar pe diye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Parle-G",
+      "qty": 3.0,
+      "customer": "Fatima"
+     }
+    }
+   ]
+  },
+  {
+   "text": "5 Tata salt bik gaye aur Ramesh ne 100 rupaye diye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Tata Salt 1kg",
+      "qty": 5.0
+     }
+    },
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 100.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "do Amul doodh becha",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Amul Milk 500ml",
+      "qty": 2.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "2 Fortune oil kharab ho gaye, stock se hatao",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Fortune Sunflower Oil 1L",
+      "qty": -2.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Vikram ka 150 udhaar likh do",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Vikram",
+      "amount": 150.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ramesh का 300 उधार",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 300.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi ने 200 दिए",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 200.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ge 240 saala bareyiri",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 240.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 300 kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 300.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "3 Maggi maaratu aaytu",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 3.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh du eshtu baaki",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     }
+    }
+   ]
+  },
+  {
+   "text": "10 Toor dal stock bandide",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Toor Dal 1kg",
+      "qty": 10.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "indina lekka helu",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "daily_summary",
+     "args": {}
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 120 saala mattu 2 sakkare maaratu",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 120.0
+     }
+    },
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 2.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ಅವರಿಗೆ 180 ಸಾಲ",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 180.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Murugan ku 200 kadan",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Murugan",
+      "amount": 200.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Murugan 150 kuduthaar",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 150.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "4 Parle-G vithuchu",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Parle-G",
+      "qty": 4.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Sold 2 Surf Excel for 270 rupees",
+   "lang": "en",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 2.0,
+      "amount": 270.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Laxmi ne 100 jama kiye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Laxmi",
+      "amount": 100.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ka kitna baaki",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Ramesh"
+     }
+    }
+   ]
+  },
+  {
+   "text": "Sures 50 kottru",
+   "lang": "kn",
+   "calls": []
+  },
+  {
+   "text": "5 Haldiram bhujia aaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Haldiram bhujia",
+      "qty": 5.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "2 Haldiram bhujia bik gaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Haldiram bhujia",
+      "qty": 2.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Sold 3 maggi",
+   "lang": "en",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 3.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Fatima ko 2 doodh udhaar",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Amul Milk 500ml",
+      "qty": 2.0,
+      "customer": "Fatima"
+     }
+    }
+   ]
+  },
+  {
+   "text": "Vikram ne 20 diye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Vikram",
+      "amount": 20.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Nobody 50 jama",
+   "lang": "hi",
+   "calls": []
+  },
+  {
+   "text": "aaj ka hisaab",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "daily_summary",
+     "args": {}
+    }
+   ]
+  },
+  {
+   "text": "Murugan kku 75 kadan",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Murugan",
+      "amount": 75.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Muruganukku 30 kadan",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Murugan",
+      "amount": 30.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "3 sugar becha ₹150",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 3.0,
+      "amount": 150.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Rs 60 Ramesh ne wapas kiye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 60.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "4 Surf Excel bik gaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 4.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "1 Surf Excel bik gaya",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "teen Parle-G becha",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Parle-G",
+      "qty": 3.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh ne 400 jama kiye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 400.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh ka kitna baaki hai",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ಅವರಿಗೆ 20 ಸಾಲ",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 20.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi ने 50 दिए",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 50.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Murugan எவ்வளவு பாக்கி",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Murugan"
+     }
+    }
+   ]
+  },
+  {
+   "text": "hello there",
+   "lang": "hi",
+   "calls": []
+  },
+  {
+   "text": "summary",
+   "lang": "en",
+   "calls": [
+    {
+     "tool": "daily_summary",
+     "args": {}
+    }
+   ]
+  },
+  {
+   "text": "10 Toor dal kharab, stock se hatao",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Toor Dal 1kg",
+      "qty": -10.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 10 saala mattu 1 sakkare maaratu",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 10.0
+     }
+    },
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 1,200 kottru",
+   "lang": "kn",
+   "calls": []
+  },
+  {
+   "text": "2.5 sugar bik gaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 2.5
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ravi ka 99.50 udhaar",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ravi",
+      "amount": 99.5
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ravi ka kitna baaki",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Ravi"
+     }
+    }
+   ]
+  },
+  {
+   "text": "indina lekka",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "daily_summary",
+     "args": {}
+    }
+   ]
+  },
+  {
+   "text": "inniki kanakku",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "daily_summary",
+     "args": {}
+    }
+   ]
+  }
+ ],
+ "run": [
+  {
+   "text": "Ramesh ka 240 udhaar, 2 Aashirvaad 5kg bik gaye",
+   "lang": "hi",
+   "reply": "Ramesh के खाते में 240 रुपये उधार लिखा। कुल बाकी 240 रुपये। 2 Aashirvaad Atta 5kg की बिक्री दर्ज, 570 रुपये।",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 240.0
+     },
+     "ok": true
+    },
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Aashirvaad Atta 5kg",
+      "qty": 2.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi ne 500 jama kiye",
+   "lang": "hi",
+   "reply": "Lakshmi से 500 रुपये मिले। अब बाकी 700 रुपये।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 500.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh ka kitna baaki hai",
+   "lang": "hi",
+   "reply": "Suresh का कुल बाकी 350 रुपये है।",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "20 Maggi aaye",
+   "lang": "hi",
+   "reply": "Maggi Noodles का स्टॉक अब 60।",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 20.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "aaj ka hisaab batao",
+   "lang": "hi",
+   "reply": "आज 1 बिक्री, कुल 570 रुपये। उधार दिया 240, वसूली 500। कुल बाकी 1,290 रुपये।",
+   "actions": [
+    {
+     "tool": "daily_summary",
+     "args": {},
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Fatima ko 3 Parle-G udhaar pe diye",
+   "lang": "hi",
+   "reply": "Fatima को 3 Parle-G उधार, 30 रुपये। कुल बाकी 30 रुपये।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Parle-G",
+      "qty": 3.0,
+      "customer": "Fatima"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "5 Tata salt bik gaye aur Ramesh ne 100 rupaye diye",
+   "lang": "hi",
+   "reply": "5 Tata Salt 1kg की बिक्री दर्ज, 140 रुपये। Ramesh से 100 रुपये मिले। अब बाकी 140 रुपये।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Tata Salt 1kg",
+      "qty": 5.0
+     },
+     "ok": true
+    },
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 100.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "do Amul doodh becha",
+   "lang": "hi",
+   "reply": "2 Amul Milk 500ml की बिक्री दर्ज, 54 रुपये।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Amul Milk 500ml",
+      "qty": 2.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "2 Fortune oil kharab ho gaye, stock se hatao",
+   "lang": "hi",
+   "reply": "Fortune Sunflower Oil 1L का स्टॉक अब 8।",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Fortune Sunflower Oil 1L",
+      "qty": -2.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Vikram ka 150 udhaar likh do",
+   "lang": "hi",
+   "reply": "Vikram के खाते में 150 रुपये उधार लिखा। कुल बाकी 150 रुपये।",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Vikram",
+      "amount": 150.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ramesh का 300 उधार",
+   "lang": "hi",
+   "reply": "Ramesh के खाते में 300 रुपये उधार लिखा। कुल बाकी 440 रुपये।",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 300.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi ने 200 दिए",
+   "lang": "hi",
+   "reply": "Lakshmi से 200 रुपये मिले। अब बाकी 500 रुपये।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 200.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ge 240 saala bareyiri",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 240 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ 680 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 240.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 300 kottru",
+   "lang": "kn",
+   "reply": "Lakshmi ಅವರಿಂದ 300 ರೂಪಾಯಿ ಬಂದಿದೆ. ಈಗ ಬಾಕಿ 200 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 300.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "3 Maggi maaratu aaytu",
+   "lang": "kn",
+   "reply": "3 Maggi Noodles ಮಾರಾಟ ದಾಖಲಾಗಿದೆ, 42 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 3.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh du eshtu baaki",
+   "lang": "kn",
+   "reply": "Suresh ಅವರ ಒಟ್ಟು ಬಾಕಿ 350 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "10 Toor dal stock bandide",
+   "lang": "kn",
+   "reply": "Toor Dal 1kg ಸ್ಟಾಕ್ ಈಗ 18.",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Toor Dal 1kg",
+      "qty": 10.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "indina lekka helu",
+   "lang": "kn",
+   "reply": "ಇಂದು 5 ಮಾರಾಟ, ಒಟ್ಟು 836 ರೂಪಾಯಿ. ಸಾಲ 960, ವಸೂಲಿ 1,100. ಒಟ್ಟು ಬಾಕಿ 1,410 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "daily_summary",
+     "args": {},
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 120 saala mattu 2 sakkare maaratu",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 120 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ 800 ರೂಪಾಯಿ. 2 Sugar 1kg ಮಾರಾಟ ದಾಖಲಾಗಿದೆ, 92 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 120.0
+     },
+     "ok": true
+    },
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 2.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ಅವರಿಗೆ 180 ಸಾಲ",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 180 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ 980 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 180.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Murugan ku 200 kadan",
+   "lang": "ta",
+   "reply": "Murugan கணக்கில் 200 ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி 200 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Murugan",
+      "amount": 200.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Murugan 150 kuduthaar",
+   "lang": "ta",
+   "reply": "Murugan இடமிருந்து 150 ரூபாய் வந்தது. இப்போது பாக்கி 50 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 150.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "4 Parle-G vithuchu",
+   "lang": "ta",
+   "reply": "4 Parle-G விற்பனை பதிவு, 40 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Parle-G",
+      "qty": 4.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Sold 2 Surf Excel for 270 rupees",
+   "lang": "en",
+   "reply": "Sale recorded: 2 Surf Excel 1kg, 270 rupees.",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 2.0,
+      "amount": 270.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Laxmi ne 100 jama kiye",
+   "lang": "hi",
+   "reply": "Lakshmi से 100 रुपये मिले। अब बाकी 100 रुपये।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Laxmi",
+      "amount": 100.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ka kitna baaki",
+   "lang": "hi",
+   "reply": "Ramesh का कुल बाकी 980 रुपये है।",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Ramesh"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Sures 50 kottru",
+   "lang": "kn",
+   "reply": "ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. ಮತ್ತೊಮ್ಮೆ ಹೇಳಿ.",
+   "actions": []
+  },
+  {
+   "text": "5 Haldiram bhujia aaye",
+   "lang": "hi",
+   "reply": "Haldiram bhujia का स्टॉक अब 5।",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Haldiram bhujia",
+      "qty": 5.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "2 Haldiram bhujia bik gaye",
+   "lang": "hi",
+   "reply": "2 Haldiram bhujia की बिक्री दर्ज। ध्यान दें, Haldiram bhujia सिर्फ 3 बचे हैं।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Haldiram bhujia",
+      "qty": 2.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Sold 3 maggi",
+   "lang": "en",
+   "reply": "Sale recorded: 3 Maggi Noodles, 42 rupees.",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 3.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Fatima ko 2 doodh udhaar",
+   "lang": "hi",
+   "reply": "Fatima को 2 Amul Milk 500ml उधार, 54 रुपये। कुल बाकी 84 रुपये।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Amul Milk 500ml",
+      "qty": 2.0,
+      "customer": "Fatima"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Vikram ne 20 diye",
+   "lang": "hi",
+   "reply": "Vikram से 20 रुपये मिले। अब बाकी 130 रुपये।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Vikram",
+      "amount": 20.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Nobody 50 jama",
+   "lang": "hi",
+   "reply": "माफ़ कीजिए, समझ नहीं आया। फिर से बोलिए।",
+   "actions": []
+  },
+  {
+   "text": "aaj ka hisaab",
+   "lang": "hi",
+   "reply": "आज 11 बिक्री, कुल 1,334 रुपये। उधार दिया 1,514, वसूली 1,370। कुल बाकी 1,694 रुपये।",
+   "actions": [
+    {
+     "tool": "daily_summary",
+     "args": {},
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Murugan kku 75 kadan",
+   "lang": "ta",
+   "reply": "Murugan கணக்கில் 75 ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி 125 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Murugan",
+      "amount": 75.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Muruganukku 30 kadan",
+   "lang": "ta",
+   "reply": "Murugan கணக்கில் 30 ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி 155 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Murugan",
+      "amount": 30.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "3 sugar becha ₹150",
+   "lang": "hi",
+   "reply": "3 Sugar 1kg की बिक्री दर्ज, 150 रुपये।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 3.0,
+      "amount": 150.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Rs 60 Ramesh ne wapas kiye",
+   "lang": "hi",
+   "reply": "Ramesh से 60 रुपये मिले। अब बाकी 920 रुपये।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 60.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "4 Surf Excel bik gaye",
+   "lang": "hi",
+   "reply": "4 Surf Excel 1kg की बिक्री दर्ज, 560 रुपये। ध्यान दें, Surf Excel 1kg सिर्फ 0 बचे हैं।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 4.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "1 Surf Excel bik gaya",
+   "lang": "hi",
+   "reply": "1 Surf Excel 1kg की बिक्री दर्ज, 140 रुपये। ध्यान दें, Surf Excel 1kg सिर्फ -1 बचे हैं।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 1.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "teen Parle-G becha",
+   "lang": "hi",
+   "reply": "3 Parle-G की बिक्री दर्ज, 30 रुपये।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Parle-G",
+      "qty": 3.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh ne 400 jama kiye",
+   "lang": "hi",
+   "reply": "Suresh से 400 रुपये मिले। उनका 50 रुपये एडवांस जमा है।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 400.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh ka kitna baaki hai",
+   "lang": "hi",
+   "reply": "Suresh का कुल बाकी -50 रुपये है।",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ಅವರಿಗೆ 20 ಸಾಲ",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 20 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ 940 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 20.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi ने 50 दिए",
+   "lang": "hi",
+   "reply": "Lakshmi से 50 रुपये मिले। अब बाकी 50 रुपये।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 50.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Murugan எவ்வளவு பாக்கி",
+   "lang": "ta",
+   "reply": "Murugan மொத்த பாக்கி 155 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Murugan"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "hello there",
+   "lang": "hi",
+   "reply": "माफ़ कीजिए, समझ नहीं आया। फिर से बोलिए।",
+   "actions": []
+  },
+  {
+   "text": "summary",
+   "lang": "en",
+   "reply": "Today 15 sales, 2,214 rupees. Credit given 1,639, collected 1,880. Total outstanding 1,359 rupees.",
+   "actions": [
+    {
+     "tool": "daily_summary",
+     "args": {},
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "10 Toor dal kharab, stock se hatao",
+   "lang": "hi",
+   "reply": "Toor Dal 1kg का स्टॉक अब 8।",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Toor Dal 1kg",
+      "qty": -10.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 10 saala mattu 1 sakkare maaratu",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 10 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ 950 ರೂಪಾಯಿ. 1 Sugar 1kg ಮಾರಾಟ ದಾಖಲಾಗಿದೆ, 46 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 10.0
+     },
+     "ok": true
+    },
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 1.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 1,200 kottru",
+   "lang": "kn",
+   "reply": "ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. ಮತ್ತೊಮ್ಮೆ ಹೇಳಿ.",
+   "actions": []
+  },
+  {
+   "text": "2.5 sugar bik gaye",
+   "lang": "hi",
+   "reply": "2.50 Sugar 1kg की बिक्री दर्ज, 115 रुपये। ध्यान दें, Sugar 1kg सिर्फ 1.50 बचे हैं।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Sugar 1kg",
+      "qty": 2.5
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ravi ka 99.50 udhaar",
+   "lang": "hi",
+   "reply": "Ravi के खाते में 99.50 रुपये उधार लिखा। कुल बाकी 99.50 रुपये।",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ravi",
+      "amount": 99.5
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ravi ka kitna baaki",
+   "lang": "hi",
+   "reply": "Ravi का कुल बाकी 99.50 रुपये है।",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Ravi"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "indina lekka",
+   "lang": "kn",
+   "reply": "ಇಂದು 17 ಮಾರಾಟ, ಒಟ್ಟು 2,375 ರೂಪಾಯಿ. ಸಾಲ 1,748.50, ವಸೂಲಿ 1,880. ಒಟ್ಟು ಬಾಕಿ 1,468.50 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "daily_summary",
+     "args": {},
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "inniki kanakku",
+   "lang": "ta",
+   "reply": "இன்று 17 விற்பனை, மொத்தம் 2,375 ரூபாய். கடன் 1,748.50, வசூல் 1,880. மொத்த பாக்கி 1,468.50 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "daily_summary",
+     "args": {},
+     "ok": true
+    }
+   ]
+  }
+ ],
+ "final": {
+  "customers": {
+   "Ramesh": 950.0,
+   "Murugan": 155.0,
+   "Vikram": 130.0,
+   "Ravi": 99.5,
+   "Fatima": 84.0,
+   "Lakshmi": 50.0,
+   "Suresh": -50.0
+  },
+  "items": {
+   "Aashirvaad Atta 5kg": 10.0,
+   "Amul Milk 500ml": 16.0,
+   "Fortune Sunflower Oil 1L": 8.0,
+   "Haldiram bhujia": 3.0,
+   "Maggi Noodles": 54.0,
+   "Parle-G": 40.0,
+   "Sugar 1kg": 1.5,
+   "Surf Excel 1kg": -1.0,
+   "Tata Salt 1kg": 10.0,
+   "Toor Dal 1kg": 8.0
+  },
+  "sales": 17
+ }
+}

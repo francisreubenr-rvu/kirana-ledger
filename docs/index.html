@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kirana Voice Ledger — speak the udhaar book</title>
+<meta name="description" content="A ₹1,000 push-to-talk box that keeps a kirana shop's udhaar, sales and stock from code-mixed Hinglish, Kannada, Tamil or Hindi speech. Sarvam Saaras + Sarvam 105B + Bulbul on an ESP32-S3.">
+<meta property="og:title" content="Kirana Voice Ledger">
+<meta property="og:description" content="Voice-first udhaar, sales and stock ledger for kirana shops. Try the in-browser demo.">
+<meta name="theme-color" content="#241c15">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="./">🧾 Kirana Voice Ledger</a>
+    <a class="l hide-sm" href="#how">How it works</a>
+    <a class="l hide-sm" href="#architecture">Architecture</a>
+    <a class="l hide-sm" href="#hardware">Hardware</a>
+    <a class="l hide-sm" href="#team">Team</a>
+    <a class="l" href="https://github.com/francisreubenr-rvu/kirana-ledger">GitHub</a>
+    <a class="cta" href="demo.html">Try the demo</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Keep the udhaar book<br>by speaking to it.</h1>
+    <p class="lead">A ₹1,000 push-to-talk box for the kirana counter. The owner holds a button, says one code-mixed sentence,
+      and the credit book, stock and sales update. It answers back in the owner's own language.</p>
+    <div class="quote">“Ramesh ka 240 udhaar, 2 Aashirvaad 5kg bik gaye.”
+      <small>→ Ramesh owes ₹240 more · 2 atta sold for ₹570 · stock 12 → 10 · read back in Hindi</small></div>
+    <div class="btns">
+      <a class="btn primary" href="demo.html">Try it in your browser</a>
+      <a class="btn outline" href="https://github.com/francisreubenr-rvu/kirana-ledger">View the code</a>
+    </div>
+    <div class="badges" aria-label="Highlights">
+      <span>Hinglish · हिन्दी · ಕನ್ನಡ · தமிழ் · English</span><span>Sarvam Saaras v4 · 105B · Bulbul v4</span><span>ESP32-S3</span><span>Works offline (rule fallback)</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="s" id="problem">
+  <div class="wrap">
+    <h2>The problem</h2>
+    <p class="sub">India's neighbourhood shops run on trust and credit. The tools built for them assume the owner has a free hand and a free minute. They don't.</p>
+    <div class="grid g3">
+      <div class="card"><h3>📒 Udhaar leaks</h3><p>Credit lives in a paper khata or the owner's memory. Entries get missed in a rush, totals are added by hand, and asking a regular to pay up is awkward.</p></div>
+      <div class="card"><h3>📦 Stock by eye</h3><p>Reorders happen when a customer asks for something that has already run out.</p></div>
+      <div class="card"><h3>📱 Apps need hands</h3><p>Khata and POS apps want the owner to unlock a phone, find the customer and type an amount, mid-sale. That step is the one that gets skipped.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="sub">One button, one sentence, any of four languages, often mixed. The box writes only what a typed tool allows and reads back exactly what it wrote.</p>
+    <div class="grid g3">
+      <div class="card"><div class="step-n">1</div><h3>Hold and speak</h3><p>The owner holds the button and talks naturally: <span class="say">“Lakshmi 300 kottru”</span>, <span class="say">“Murugan ku 200 kadan”</span>, <span class="say">“20 Maggi aaye”</span>.</p></div>
+      <div class="card"><div class="step-n">2</div><h3>It understands</h3><p>Sarvam Saaras v4 transcribes in codemix mode with the shop's own customer and product names as keyterms. Sarvam 105B turns the sentence into ledger tool calls, several per sentence if needed.</p></div>
+      <div class="card"><div class="step-n">3</div><h3>It writes and confirms</h3><p>Tools update SQLite (money as integer paise). A fixed template in the owner's language is spoken back by Bulbul: <span class="say">“Lakshmi ಅವರಿಂದ 300 ರೂಪಾಯಿ ಬಂದಿದೆ. ಈಗ ಬಾಕಿ 900.”</span></p></div>
+      <div class="card"><div class="step-n">4</div><h3>Ask anything</h3><p><span class="say">“Suresh ka kitna baaki hai?”</span> gets the balance read aloud, with no screen and no phone unlock.</p></div>
+      <div class="card"><div class="step-n">5</div><h3>Close the day</h3><p><span class="say">“Aaj ka hisaab”</span> gives the day's sales, credit, collections and reorder list, plus a WhatsApp-ready summary.</p></div>
+      <div class="card"><div class="step-n">6</div><h3>Collect politely</h3><p>One-tap WhatsApp reminders for every customer who owes, in Hindi, Kannada, Tamil or English. This is where a ledger turns into recovered cash.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="architecture">
+  <div class="wrap">
+    <h2>Architecture</h2>
+    <p class="sub">A small, domain-agnostic voice → tools loop. Every stage sits behind one interface and has an offline mock, so the counter never goes silent.</p>
+    <div class="flow" role="list" aria-label="Pipeline">
+      <div class="box" role="listitem"><b>Device</b>ESP32-S3 + INMP441 mic records 16 kHz WAV while the button is held</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box" role="listitem"><b>STT</b>Sarvam Saaras v4, codemix, keyterms = known names</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box" role="listitem"><b>Plan</b>Sarvam 105B tool calls (any OpenAI-compatible LLM, or offline rules)</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box" role="listitem"><b>Act</b>6 typed tools on SQLite: credit, payment, sale, stock, balance, summary</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box" role="listitem"><b>Speak</b>Template read-back via Bulbul v4, played on a MAX98357A amp</div>
+    </div>
+    <pre class="diagram" aria-label="Detailed diagram">  owner speaks ─► ESP32-S3 ── HTTP POST /voice (WAV) ──►  FastAPI server (laptop or small VM)
+                                                          1 STT     Saaras v4 (codemix + keyterms)
+                                                          2 Plan    LLM tool calls ─┐  fallback: rule parser
+                                                          3 Act     ledger tools ◄──┘  (SQLite, integer paise)
+                                                          4 Confirm fixed hi / kn / ta / en template
+  speaker  ◄── MAX98357A ◄──────────── reply WAV ◄─────── 5 TTS     Bulbul v4-flash, 16 kHz
+                                                          /summary  WhatsApp day summary
+                                                          /reminders wa.me links per debtor</pre>
+    <div class="grid g3" style="margin-top:18px">
+      <div class="card"><h3>Deterministic writes</h3><p>The LLM only picks tools and arguments. It never writes free text into the books.</p></div>
+      <div class="card"><h3>Graceful fallback</h3><p>If the LLM times out or fails, a rule parser handles common phrasings for that utterance and the reply notes it.</p></div>
+      <div class="card"><h3>Provider-swappable</h3><p>STT, planner and TTS are each one small class. Point <code>LLM_URL</code> at any OpenAI-compatible endpoint.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="hardware">
+  <div class="wrap">
+    <h2>Hardware: about ₹1,000</h2>
+    <p class="sub">Rough Indian retail prices, November 2026, including GST and before shipping. Power comes from any USB phone charger.</p>
+    <div class="table-scroll">
+    <table class="t">
+      <thead><tr><th>Part</th><th>Role</th><th>Approx. price</th></tr></thead>
+      <tbody>
+        <tr><td>ESP32-S3 DevKitC-1 N16R8 (8 MB PSRAM)</td><td>Wi-Fi, recording buffer, HTTP client</td><td class="num">₹620</td></tr>
+        <tr><td>INMP441 I2S MEMS microphone</td><td>Voice capture (16 kHz)</td><td class="num">₹150–180</td></tr>
+        <tr><td>MAX98357A I2S 3 W class-D amp</td><td>Plays the spoken reply</td><td class="num">₹134</td></tr>
+        <tr><td>3 W 4 Ω speaker (40–50 mm)</td><td>Output</td><td class="num">~₹50</td></tr>
+        <tr><td>Push button (tactile or arcade)</td><td>Push-to-talk</td><td class="num">₹10–40</td></tr>
+        <tr><td>Jumper wires / perfboard</td><td>Wiring</td><td class="num">~₹30</td></tr>
+        <tr class="total"><td>Total</td><td></td><td class="num">≈ ₹995–1,055</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">The firmware targets arduino-esp32 3.x (<code>ESP_I2S</code>). It has not yet been flashed onto hardware; see the repo's known limits. Wiring and flashing steps are in the <a href="https://github.com/francisreubenr-rvu/kirana-ledger#hardware">README</a>.</p>
+  </div>
+</section>
+
+<section class="s" id="try">
+  <div class="wrap">
+    <h2>Try it now</h2>
+    <p class="sub">The demo page runs the same offline parser, ledger and confirmation templates as the server, ported to JavaScript and checked against the Python code on every commit. Nothing is sent anywhere unless you connect your own backend.</p>
+    <div class="btns">
+      <a class="btn primary" href="demo.html">Open the live demo</a>
+      <a class="btn light" style="border-color:#241c15" href="https://github.com/francisreubenr-rvu/kirana-ledger#quick-start-offline-no-key">Run the server locally</a>
+    </div>
+  </div>
+</section>
+
+<section class="s alt team" id="team">
+  <div class="wrap">
+    <h2>Team</h2>
+    <p class="sub">Built for <strong>India Runs on Voice 2026</strong> (Scaler × Wispr Flow), Small Business track. B.Tech CSE students at RV University, Bengaluru.</p>
+    <div class="grid g2">
+      <div class="card"><div class="avatar" aria-hidden="true">FR</div><div><h3>Francis Reuben R</h3><p><a href="https://github.com/francisreubenr-rvu">github.com/francisreubenr-rvu</a> · <a href="https://www.linkedin.com/in/francis-reuben-r">LinkedIn</a></p></div></div>
+      <div class="card"><div class="avatar" aria-hidden="true">VD</div><div><h3>Varun Devaraj</h3><p><a href="https://github.com/varundevarajrvu">github.com/varundevarajrvu</a></p></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong style="color:#fff">Kirana Voice Ledger</strong> · MIT licence · <a href="https://github.com/francisreubenr-rvu/kirana-ledger">Source on GitHub</a> · <a href="demo.html">Demo</a></p>
+    <p>Prices in the demo catalogue are illustrative sample values, not live MRPs. Kannada and Tamil strings are pending a native-speaker review.</p>
+  </div>
+</footer>
+</body>
+</html>

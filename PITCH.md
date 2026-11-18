@@ -51,7 +51,7 @@ reminder instead of an awkward conversation.
 ## What exists in v0
 
 FastAPI server (device `/voice` WAV in/out, `/text`, ledger/summary/reminder endpoints), web push-to-talk demo,
-ESP32-S3 firmware (not yet flashed), six ledger tools on SQLite, mock mode, 85 passing tests, including a
+ESP32-S3 firmware (not yet flashed), six ledger tools on SQLite, mock mode, 88 passing tests, including a
 24-utterance Hinglish/Hindi/Kannada/Tamil/English set with expected tool calls.
 
 ## Adapting to the 27 Nov problem statement

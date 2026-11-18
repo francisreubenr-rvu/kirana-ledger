@@ -9,12 +9,14 @@ Demo:    POST /reset  (wipes and re-seeds demo data)
 from __future__ import annotations
 
 import base64
+import inspect
 import logging
 import os
 from pathlib import Path
 from urllib.parse import quote
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response
 from pydantic import BaseModel
 
@@ -24,6 +26,8 @@ from .ledger import Ledger
 
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 WEB = Path(__file__).resolve().parent.parent / "web"
+# Browsers that may call this API cross-origin: the GitHub Pages demo ("connect backend") and local dev.
+DEFAULT_CORS = "https://francisreubenr-rvu.github.io,http://localhost:8000,http://127.0.0.1:8000"
 MAX_AUDIO = 2 * 1024 * 1024  # ~60 s of 16 kHz mono 16-bit; Sarvam REST STT takes < 30 s
 
 
@@ -41,6 +45,20 @@ def create_app(settings: Settings | None = None, ledger: Ledger | None = None, a
     ag = agent or Agent(s, led)
     app = FastAPI(title="Kirana Voice Ledger", version="0.1.0")
     app.state.agent, app.state.ledger, app.state.settings = ag, led, s
+    origins = [o.strip() for o in os.environ.get("CORS_ORIGINS", DEFAULT_CORS).split(",") if o.strip()]
+    cors = dict(allow_origins=origins, allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["*"],
+                expose_headers=["X-Transcript", "X-Reply", "X-Lang", "X-Actions"])
+    # Chrome's Private Network Access: an https page calling http://localhost needs this on the preflight.
+    if "allow_private_network" in inspect.signature(CORSMiddleware.__init__).parameters:  # Starlette >= 0.38
+        cors["allow_private_network"] = True
+    else:
+        @app.middleware("http")
+        async def private_network_access(request: Request, call_next):
+            resp = await call_next(request)
+            if request.headers.get("access-control-request-private-network") == "true":
+                resp.headers["Access-Control-Allow-Private-Network"] = "true"
+            return resp
+    app.add_middleware(CORSMiddleware, **cors)
 
     async def _read_audio(request: Request) -> tuple[bytes, str | None]:
         ctype = request.headers.get("content-type", "")
