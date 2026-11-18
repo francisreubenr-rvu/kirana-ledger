@@ -18,24 +18,37 @@ NATIVE = {
     "गये": "gaye", "गया": "gaya", "बिके": "bike", "बेचा": "becha", "बेचे": "beche", "आया": "aaya", "आए": "aaye",
     "आये": "aaye", "बाकी": "baaki", "बाक़ी": "baaki", "कितना": "kitna", "कितने": "kitne", "हिसाब": "hisaab",
     "आज": "aaj", "और": "aur", "रुपये": "rupaye", "रुपए": "rupaye", "है": "hai", "हैं": "hain", "स्टॉक": "stock",
-    "माल": "maal", "लिख": "likh", "दो": "do", "लिखो": "likho",
+    "माल": "maal", "लिख": "likh", "दो": "do", "लिखो": "likho", "लौटाए": "lautaye", "लौटाये": "lautaye",
+    "लौटाया": "lautaya", "लौटा": "lauta", "दे": "de", "चुकाए": "chukaye", "चुकाया": "chukaya", "चुका": "chuka",
     # Kannada
     "ಸಾಲ": "saala", "ಕೊಟ್ಟರು": "kottru", "ಕೊಟ್ಟಿದ್ದಾರೆ": "kottidaare", "ಮಾರಾಟ": "maarata",
     "ಮಾರಾಟವಾಯಿತು": "maarata", "ಮಾರಿದೆ": "maaride", "ಬಾಕಿ": "baaki", "ಎಷ್ಟು": "eshtu", "ಬಂದಿದೆ": "bandide",
     "ಇಂದಿನ": "indina", "ಲೆಕ್ಕ": "lekka", "ಮತ್ತು": "mattu", "ರೂಪಾಯಿ": "rupaye", "ಅವರಿಗೆ": "avarige",
-    "ಸ್ಟಾಕ್": "stock", "ಬರೆಯಿರಿ": "bareyiri",
+    "ಸ್ಟಾಕ್": "stock", "ಬರೆಯಿರಿ": "bareyiri", "ಕೊಟ್ರು": "kotru", "ಕೊಟ್ಟಿದೆ": "kottide", "ಕೊಟ್ಟ": "kotta",
+    "ವಾಪಸ್": "vaapas", "ವಾಪಾಸ್": "vaapas", "ವಾಪಸು": "vaapas",
     # Tamil
     "கடன்": "kadan", "கொடுத்தார்": "kuduthaar", "கொடுத்தாங்க": "kuduthanga", "விற்றது": "vithuchu",
     "வித்துச்சு": "vithuchu", "பாக்கி": "baaki", "எவ்வளவு": "evvalavu", "வந்தது": "vandhuchu",
     "வந்துச்சு": "vandhuchu", "இன்றைய": "indraiya", "கணக்கு": "kanakku", "ரூபாய்": "rupaye", "மற்றும்": "and",
-    "ஸ்டாக்": "stock",
+    "ஸ்டாக்": "stock", "கொடுத்தார்கள்": "kuduthaanga", "கொடுத்தாரு": "kuduthaar",
+    "திருப்பி": "thiruppi",
 }
 
 SUMMARY_KW = {"hisaab", "hisab", "summary", "lekka", "kanakku", "report", "total"}
 DAY_KW = {"aaj", "today", "indina", "indu", "ivattu", "indraiya", "inniki", "din", "day"}
 QUERY_KW = {"kitna", "kitne", "baaki", "baki", "balance", "eshtu", "evvalavu", "owes", "owe", "due", "paakki"}
-PAYMENT_KW = {"diye", "diya", "jama", "wapas", "vapas", "paid", "pay", "chukaya", "kottru", "kottaru", "kottidaare",
-              "kottidare", "vaapas", "kuduthaar", "kuduthanga", "kuduthaanga", "kuduthar", "returned", "lautaye"}
+# "Give" verbs. Said after a bare name ("Suresh 50 kottru", "Murugan 50 kuduthaar", "Ramesh ne 50 diye") they mean the
+# customer GAVE the shop money = a payment. But the same verbs also mean the shop gave goods/money TO someone: with a
+# credit word ("saala kottru", "udhaar pe diye", "kadan kuduthaar") or a dative ("Rameshge", "Ramesh ko",
+# "Muruganukku") they are treated as credit instead. See README "Payment phrases".
+GIVE_KW = {"diye", "diya", "de", "kottru", "kottaru", "kotru", "kottidaare", "kottidare", "kottiddare", "kottide",
+           "kotta", "kottu", "kuduthaar", "kuduthar", "kuduthaaru", "kuduthanga", "kuduthaanga", "koduthaar",
+           "koduthar", "koduthaanga", "koduthanga", "kuduthutaar", "kuduthuttaar"}
+# Return/repay verbs: a payment whatever else is in the sentence.
+REPAY_KW = {"jama", "wapas", "vapas", "vaapas", "vaapasu", "paid", "pay", "chukaya", "chukaye", "chuka", "returned",
+            "lautaye", "lautaya", "lauta", "lautaaye", "thiruppi", "tiruppi"}
+PAYMENT_KW = GIVE_KW | REPAY_KW
+DATIVE = {"ko", "ge", "ige", "avarige", "kku", "ku", "ukku"}
 CREDIT_KW = {"udhaar", "udhar", "udhari", "udhaari", "credit", "likh", "likho", "khata", "khate", "saala", "saal",
              "kadan", "bareyiri", "bari"}
 STOCK_KW = {"aaya", "aaye", "aayi", "stock", "maal", "restock", "bandide", "bandhide", "banthu", "bantu",
@@ -61,11 +74,11 @@ NUM_WORDS = {
     "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
 }
 
-KN_HINTS = {"saala", "kottru", "kottaru", "kottidaare", "maaratu", "maaride", "maarata", "eshtu", "bandide", "ge",
+KN_HINTS = {"saala", "kottru", "kottaru", "kotru", "kottide", "kotta", "kottiddare", "vaapasu", "kottidaare", "maaratu", "maaride", "maarata", "eshtu", "bandide", "ge",
             "avarige", "indina", "lekka", "mattu", "matthu", "bareyiri", "ige", "avru"}
-TA_HINTS = {"kadan", "kuduthaar", "kuduthanga", "vittachu", "vithuchu", "evvalavu", "vandhuchu", "ukku", "kku",
+TA_HINTS = {"kadan", "kuduthaar", "kuduthanga", "kuduthaanga", "koduthaar", "koduthar", "koduthaanga", "thiruppi", "vittachu", "vithuchu", "evvalavu", "vandhuchu", "ukku", "kku",
             "kanakku", "indraiya", "paakki", "inniki"}
-HI_HINTS = {"ka", "ke", "ki", "ko", "ne", "udhaar", "udhar", "diye", "jama", "bik", "gaye", "aaya", "kitna", "hisaab",
+HI_HINTS = {"ka", "ke", "ki", "ko", "ne", "udhaar", "udhar", "diye", "jama", "lautaye", "lautaya", "bik", "gaye", "aaya", "kitna", "hisaab",
             "aaj", "hai"}
 EN_HINTS = {"sold", "paid", "credit", "owes", "arrived", "received", "how", "much", "summary", "today"}
 
@@ -73,6 +86,13 @@ SIZE_RE = re.compile(r"^\d+(?:\.\d+)?(?:kg|g|gm|gms|gram|grams|ml|l|ltr|litre|li
 NUM_RE = re.compile(r"^\d+(?:\.\d+)?$")
 TOKEN_RE = r"[^\s,;:!?।()\"']+"
 CURRENCY_TOKENS = {"rs", "rs.", "₹", "rupaye", "rupees", "rupay", "inr", "rupaiye"}
+# Digit grouping: Indian 1,200 / 1,20,000 / 12,34,567 and Western 1,200,000. Commas inside a number are removed
+# before the utterance is split into clauses (a bare comma is still a clause break: "2 Maggi, 3 Parle-G").
+GROUPED_NUM_RE = re.compile(r"(?<![\d,])(?:\d{1,3}(?:,\d{3}){2,}|\d{1,3}(?:,\d{2})*,\d{3})(?!,?\d)")
+
+
+def normalize_numbers(text: str) -> str:
+    return GROUPED_NUM_RE.sub(lambda m: m.group(0).replace(",", ""), text)
 
 
 @dataclass
@@ -83,6 +103,7 @@ class ParseResult:
 
 def detect_lang(text: str) -> str:
     """Return hi / kn / ta / en from script, then from Latin keyword hints."""
+    text = normalize_numbers(text)
     if re.search(r"[\u0C80-\u0CFF]", text):
         return "kn"
     if re.search(r"[\u0B80-\u0BFF]", text):
@@ -162,6 +183,29 @@ def _find_name(toks: list[str], orig: list[str], known: Iterable[str], skip: set
     return None
 
 
+def _leading_name(toks: list[str], orig: list[str], item_lookup) -> str | None:
+    """Bare "<name> <amount> <verb>" ("Sures 50 kottru"): the first word, if it is not vocabulary, a number or an item.
+    The ledger then maps it onto an existing customer (conservative fuzzy match, asks back when ambiguous)."""
+    if not toks:
+        return None
+    t = toks[0]
+    vocab = SUMMARY_KW | QUERY_KW | PAYMENT_KW | CREDIT_KW | STOCK_KW | SALE_KW | STOCK_REMOVE_KW | PARTICLES | FILLER | DAY_KW
+    if t in vocab or t in CURRENCY_TOKENS or t in NUM_WORDS or t.startswith("₹") or re.search(r"\d", t):
+        return None
+    if not re.search(r"[A-Za-z\u0900-\u0D7F]", t) or len(t) < 2:
+        return None
+    if item_lookup and item_lookup(t):
+        return None
+    return _title(orig[0])
+
+
+def _is_dative(toks: list[str], name: str) -> bool:
+    if set(toks) & DATIVE:
+        return True
+    n = name.lower()
+    return any(t != n and t.startswith(n) and t[len(n):].lstrip("-") in {"ge", "ige", "kku", "ukku", "ku", "ko"} for t in toks)
+
+
 def _title(s: str) -> str:
     return s[:1].upper() + s[1:] if s.isascii() else s
 
@@ -181,6 +225,7 @@ def _item_text(toks: list[str], orig: list[str], drop_idx: set[int], name: str |
 
 
 def parse(text: str, known_customers: Iterable[str] = (), item_lookup: Callable[[str], str | None] | None = None) -> ParseResult:
+    text = normalize_numbers(text)
     lang = detect_lang(text)
     known = list(known_customers)
     calls: list[dict] = []
@@ -203,15 +248,22 @@ def parse(text: str, known_customers: Iterable[str] = (), item_lookup: Callable[
             calls.append({"tool": "query_balance", "args": {"customer": name}})
             continue
 
+        if name is None and tset & (PAYMENT_KW | CREDIT_KW | QUERY_KW):
+            name = _leading_name(toks, orig, item_lookup)
+            if name and tset & QUERY_KW and not nums and cur_amount is None and not (tset & CREDIT_KW - {"baaki"}):
+                calls.append({"tool": "query_balance", "args": {"customer": name}})
+                continue
+
         amount = cur_amount if cur_amount is not None else (nums[0][1] if nums else None)
 
-        # payment ("diye/diya" alone is ambiguous: "udhaar pe diye" means goods given on credit)
-        strong_pay = tset & (PAYMENT_KW - {"diye", "diya"})
-        if name and amount is not None and (strong_pay or (tset & PAYMENT_KW and not tset & CREDIT_KW)):
+        # payment. Repay verbs (jama, wapas, ...) always mean a payment. Give verbs (diye, kottru, kuduthaar) are a
+        # payment only without a credit word or a dative: "udhaar pe diye" / "Rameshge 50 kottru" = given on credit.
+        give_to = bool(name and tset & GIVE_KW and not tset & REPAY_KW and _is_dative(toks, name))
+        if name and amount is not None and (tset & REPAY_KW or (tset & GIVE_KW and not tset & CREDIT_KW and not give_to)):
             calls.append({"tool": "record_payment", "args": {"customer": name, "amount": amount}})
             continue
 
-        is_credit = bool(tset & CREDIT_KW)
+        is_credit = bool(tset & CREDIT_KW) or give_to
         is_sale = bool(tset & SALE_STRONG) or (bool(tset & {"gaya", "gaye"}) and not tset & STOCK_KW)
         is_stock = bool(tset & STOCK_KW) or bool(tset & STOCK_REMOVE_KW)
 

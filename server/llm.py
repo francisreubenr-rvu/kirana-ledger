@@ -33,13 +33,16 @@ speech transcript. Turn it into ledger tool calls.
 Rules:
 - Call one tool per distinct action; a single sentence can contain several (e.g. a credit AND a sale).
 - "X ka 240 udhaar" / "X ge 240 saala" / "X ku 240 kadan" = add_credit(X, 240).
-- "X ne 100 diye / jama" / "X 100 kottru" / "X 100 kuduthaar" = record_payment(X, 100).
+- "X ne 100 diye / jama" / "X 100 kottru / kottidaare / ಕೊಟ್ಟರು" / "X 100 kuduthaar / koduthaar" / "X ne 100 lautaye"
+  = record_payment(X, 100). Amounts may use Indian grouping: "1,20,000" = 120000.
+- But "gave" TO a customer is credit: "Xge 60 saala kottru" / "X ko 60 diye" / "Xukku 60 kadan kuduthaar" = add_credit(X, 60).
 - "2 Aashirvaad 5kg bik gaye" = record_sale(item="Aashirvaad Atta 5kg", qty=2). Sizes like 5kg are part of the item, not quantities.
 - If goods were given to a named customer on credit, use record_sale with customer set (do NOT also call add_credit).
 - "20 Maggi aaye / maal aaya" = update_stock(item, +20). Damaged/expired = negative qty.
 - "X ka kitna baaki" = query_balance(X). "Aaj ka hisaab" = daily_summary().
 - Customer names: Latin script, Title Case (रमेश -> Ramesh). Amounts are rupees as numbers.
-- Prefer names from the known lists below when the transcript is close to one.
+- Prefer names from the known lists below when the transcript is close to one (e.g. "Sures" = Suresh). If it is
+  close to two of them, call no tool and ask which one.
 - Never invent amounts. If something essential is missing or unclear, call no tool and reply with ONE short
   question in the owner's language.
 Known customers: {customers}

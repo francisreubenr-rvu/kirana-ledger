@@ -37,22 +37,31 @@
     "गये": "gaye", "गया": "gaya", "बिके": "bike", "बेचा": "becha", "बेचे": "beche", "आया": "aaya", "आए": "aaye",
     "आये": "aaye", "बाकी": "baaki", "बाक़ी": "baaki", "कितना": "kitna", "कितने": "kitne", "हिसाब": "hisaab",
     "आज": "aaj", "और": "aur", "रुपये": "rupaye", "रुपए": "rupaye", "है": "hai", "हैं": "hain", "स्टॉक": "stock",
-    "माल": "maal", "लिख": "likh", "दो": "do", "लिखो": "likho",
+    "माल": "maal", "लिख": "likh", "दो": "do", "लिखो": "likho", "लौटाए": "lautaye", "लौटाये": "lautaye",
+    "लौटाया": "lautaya", "लौटा": "lauta", "दे": "de", "चुकाए": "chukaye", "चुकाया": "chukaya", "चुका": "chuka",
     "ಸಾಲ": "saala", "ಕೊಟ್ಟರು": "kottru", "ಕೊಟ್ಟಿದ್ದಾರೆ": "kottidaare", "ಮಾರಾಟ": "maarata",
     "ಮಾರಾಟವಾಯಿತು": "maarata", "ಮಾರಿದೆ": "maaride", "ಬಾಕಿ": "baaki", "ಎಷ್ಟು": "eshtu", "ಬಂದಿದೆ": "bandide",
     "ಇಂದಿನ": "indina", "ಲೆಕ್ಕ": "lekka", "ಮತ್ತು": "mattu", "ರೂಪಾಯಿ": "rupaye", "ಅವರಿಗೆ": "avarige",
-    "ಸ್ಟಾಕ್": "stock", "ಬರೆಯಿರಿ": "bareyiri",
+    "ಸ್ಟಾಕ್": "stock", "ಬರೆಯಿರಿ": "bareyiri", "ಕೊಟ್ರು": "kotru", "ಕೊಟ್ಟಿದೆ": "kottide", "ಕೊಟ್ಟ": "kotta",
+    "ವಾಪಸ್": "vaapas", "ವಾಪಾಸ್": "vaapas", "ವಾಪಸು": "vaapas",
     "கடன்": "kadan", "கொடுத்தார்": "kuduthaar", "கொடுத்தாங்க": "kuduthanga", "விற்றது": "vithuchu",
     "வித்துச்சு": "vithuchu", "பாக்கி": "baaki", "எவ்வளவு": "evvalavu", "வந்தது": "vandhuchu",
     "வந்துச்சு": "vandhuchu", "இன்றைய": "indraiya", "கணக்கு": "kanakku", "ரூபாய்": "rupaye", "மற்றும்": "and",
-    "ஸ்டாக்": "stock",
+    "ஸ்டாக்": "stock", "கொடுத்தார்கள்": "kuduthaanga", "கொடுத்தாரு": "kuduthaar",
+    "திருப்பி": "thiruppi",
   };
 
   const SUMMARY_KW = S(["hisaab", "hisab", "summary", "lekka", "kanakku", "report", "total"]);
   const DAY_KW = S(["aaj", "today", "indina", "indu", "ivattu", "indraiya", "inniki", "din", "day"]);
   const QUERY_KW = S(["kitna", "kitne", "baaki", "baki", "balance", "eshtu", "evvalavu", "owes", "owe", "due", "paakki"]);
-  const PAYMENT_KW = S(["diye", "diya", "jama", "wapas", "vapas", "paid", "pay", "chukaya", "kottru", "kottaru", "kottidaare",
-    "kottidare", "vaapas", "kuduthaar", "kuduthanga", "kuduthaanga", "kuduthar", "returned", "lautaye"]);
+  // "Give" verbs: payment after a bare name, credit with a credit word or a dative (see rule_parser.py / README).
+  const GIVE_KW = S(["diye", "diya", "de", "kottru", "kottaru", "kotru", "kottidaare", "kottidare", "kottiddare", "kottide",
+    "kotta", "kottu", "kuduthaar", "kuduthar", "kuduthaaru", "kuduthanga", "kuduthaanga", "koduthaar",
+    "koduthar", "koduthaanga", "koduthanga", "kuduthutaar", "kuduthuttaar"]);
+  const REPAY_KW = S(["jama", "wapas", "vapas", "vaapas", "vaapasu", "paid", "pay", "chukaya", "chukaye", "chuka", "returned",
+    "lautaye", "lautaya", "lauta", "lautaaye", "thiruppi", "tiruppi"]);
+  const PAYMENT_KW = union(GIVE_KW, REPAY_KW);
+  const DATIVE = S(["ko", "ge", "ige", "avarige", "kku", "ku", "ukku"]);
   const CREDIT_KW = S(["udhaar", "udhar", "udhari", "udhaari", "credit", "likh", "likho", "khata", "khate", "saala", "saal",
     "kadan", "bareyiri", "bari"]);
   const STOCK_KW = S(["aaya", "aaye", "aayi", "stock", "maal", "restock", "bandide", "bandhide", "banthu", "bantu",
@@ -78,17 +87,20 @@
     one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
   };
 
-  const KN_HINTS = S(["saala", "kottru", "kottaru", "kottidaare", "maaratu", "maaride", "maarata", "eshtu", "bandide", "ge",
+  const KN_HINTS = S(["saala", "kottru", "kottaru", "kotru", "kottide", "kotta", "kottiddare", "vaapasu", "kottidaare", "maaratu", "maaride", "maarata", "eshtu", "bandide", "ge",
     "avarige", "indina", "lekka", "mattu", "matthu", "bareyiri", "ige", "avru"]);
-  const TA_HINTS = S(["kadan", "kuduthaar", "kuduthanga", "vittachu", "vithuchu", "evvalavu", "vandhuchu", "ukku", "kku",
+  const TA_HINTS = S(["kadan", "kuduthaar", "kuduthanga", "kuduthaanga", "koduthaar", "koduthar", "koduthaanga", "thiruppi", "vittachu", "vithuchu", "evvalavu", "vandhuchu", "ukku", "kku",
     "kanakku", "indraiya", "paakki", "inniki"]);
-  const HI_HINTS = S(["ka", "ke", "ki", "ko", "ne", "udhaar", "udhar", "diye", "jama", "bik", "gaye", "aaya", "kitna", "hisaab",
+  const HI_HINTS = S(["ka", "ke", "ki", "ko", "ne", "udhaar", "udhar", "diye", "jama", "lautaye", "lautaya", "bik", "gaye", "aaya", "kitna", "hisaab",
     "aaj", "hai"]);
   const EN_HINTS = S(["sold", "paid", "credit", "owes", "arrived", "received", "how", "much", "summary", "today"]);
 
   const NUM_RE = /^\d+(?:\.\d+)?$/;
   const TOKEN_SRC = "[^\\s,;:!?।()\"']+";
   const CURRENCY_TOKENS = S(["rs", "rs.", "₹", "rupaye", "rupees", "rupay", "inr", "rupaiye"]);
+  // Indian 1,200 / 1,20,000 and Western 1,200,000 digit grouping; commas inside a number go before clause splitting.
+  const GROUPED_NUM_RE = /(?<![\d,])(?:\d{1,3}(?:,\d{3}){2,}|\d{1,3}(?:,\d{2})*,\d{3})(?!,?\d)/g;
+  const normalizeNumbers = (text) => text.replace(GROUPED_NUM_RE, (m) => m.split(",").join(""));
   const SIZE_UNITS_NUM = S(["kg", "g", "gm", "ml", "l", "ltr", "litre", "liter", "gram"]);
   const SIZE_UNITS_ITEM = S(["kg", "g", "ml", "l", "ltr", "gm"]);
   const PARTICLE_AFTER_NAME = S(["ka", "ke", "ki", "ko", "ne", "se", "ge", "ige", "avarige", "avru", "avaru", "kku", "ku", "ukku",
@@ -109,6 +121,7 @@
   }
 
   function detectLang(text) {
+    text = normalizeNumbers(text);
     if (/[\u0C80-\u0CFF]/.test(text)) return "kn";
     if (/[\u0B80-\u0BFF]/.test(text)) return "ta";
     if (/[\u0900-\u097F]/.test(text)) return "hi";
@@ -145,6 +158,22 @@
       }
     });
     return [nums, amount];
+  }
+
+  function leadingName(toks, orig, itemLookup) {
+    if (!toks.length) return null;
+    const t = toks[0];
+    const vocab = union(SUMMARY_KW, QUERY_KW, PAYMENT_KW, CREDIT_KW, STOCK_KW, SALE_KW, STOCK_REMOVE_KW, PARTICLES, FILLER, DAY_KW);
+    if (vocab.has(t) || CURRENCY_TOKENS.has(t) || has(NUM_WORDS, t) || t.startsWith("₹") || /\d/.test(t)) return null;
+    if (!/[A-Za-z\u0900-\u0D7F]/.test(t) || [...t].length < 2) return null;
+    if (itemLookup && itemLookup(t)) return null;
+    return title(orig[0]);
+  }
+  function isDative(toks, name) {
+    if (any(new Set(toks), DATIVE)) return true;
+    const n = name.toLowerCase();
+    const suf = S(["ge", "ige", "kku", "ukku", "ku", "ko"]);
+    return toks.some((t) => t !== n && t.startsWith(n) && suf.has(t.slice(n.length).replace(/^-+/, "")));
   }
 
   const title = (s) => (isAscii(s) ? s.slice(0, 1).toUpperCase() + s.slice(1) : s);
@@ -185,6 +214,7 @@
 
   /** Utterance -> {lang, calls:[{tool, args}]}. Same behaviour as server/rule_parser.py parse(). */
   function parse(text, knownCustomers, itemLookup) {
+    text = normalizeNumbers(text);
     const lang = detectLang(text);
     const known = [...(knownCustomers || [])];
     const calls = [];
@@ -195,7 +225,7 @@
       orig = orig.map((o) => (has(NATIVE, o) ? NATIVE[o] : o));
       const tset = new Set(toks);
       const [nums, curAmount] = numbers(toks);
-      const name = findName(toks, orig, known, new Set());
+      let name = findName(toks, orig, known, new Set());
 
       if ((any(tset, SUMMARY_KW) && (any(tset, DAY_KW) || !name)) || tset.has("summary")) {
         calls.push({ tool: "daily_summary", args: {} }); continue;
@@ -203,13 +233,19 @@
       if (any(tset, QUERY_KW) && name && !nums.length && curAmount === null && !any(tset, minus(CREDIT_KW, S(["baaki"])))) {
         calls.push({ tool: "query_balance", args: { customer: name } }); continue;
       }
+      if (name === null && any(tset, union(PAYMENT_KW, CREDIT_KW, QUERY_KW))) {
+        name = leadingName(toks, orig, itemLookup);
+        if (name && any(tset, QUERY_KW) && !nums.length && curAmount === null && !any(tset, minus(CREDIT_KW, S(["baaki"])))) {
+          calls.push({ tool: "query_balance", args: { customer: name } }); continue;
+        }
+      }
       const amount = curAmount !== null ? curAmount : (nums.length ? nums[0][1] : null);
 
-      const strongPay = any(tset, minus(PAYMENT_KW, S(["diye", "diya"])));
-      if (name && amount !== null && (strongPay || (any(tset, PAYMENT_KW) && !any(tset, CREDIT_KW)))) {
+      const giveTo = !!(name && any(tset, GIVE_KW) && !any(tset, REPAY_KW) && isDative(toks, name));
+      if (name && amount !== null && (any(tset, REPAY_KW) || (any(tset, GIVE_KW) && !any(tset, CREDIT_KW) && !giveTo))) {
         calls.push({ tool: "record_payment", args: { customer: name, amount } }); continue;
       }
-      const isCredit = any(tset, CREDIT_KW);
+      const isCredit = any(tset, CREDIT_KW) || giveTo;
       const isSale = any(tset, SALE_STRONG) || (any(tset, S(["gaya", "gaye"])) && !any(tset, STOCK_KW));
       const isStock = any(tset, STOCK_KW) || any(tset, STOCK_REMOVE_KW);
 
@@ -322,11 +358,33 @@
   const istIso = (ms) => new Date(ms + IST_MS).toISOString().replace("Z", "+05:30");
   const rs = (p) => (p === null || p === undefined ? null : Math.round(p) / 100);
   const paise = (r) => Math.round(parseFloat(r) * 100);
-  const fmtRs = (p) => { const r = p / 100; return Number.isInteger(r) ? "₹" + group(r, 0) : "₹" + group(r, 2); };
+  const fmtRs = (p) => { const r = p / 100; return Number.isInteger(r) ? "₹" + groupIn(r, 0) : "₹" + groupIn(r, 2); };
   const fmtQty = (q) => (Number.isInteger(Number(q)) ? String(Number(q)) : String(Number(q)));
-  function group(x, digits) {
-    return Number(x).toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  /** Indian digit grouping, same as ledger.group_in(): 1,200 / 1,20,000 / 12,34,567.89 */
+  function groupIn(x, digits) {
+    x = Number(x);
+    const s = Math.abs(x).toFixed(digits);
+    let [whole, frac] = s.split(".");
+    if (whole.length > 3) {
+      let head = whole.slice(0, -3); const tail = whole.slice(-3); const parts = [];
+      while (head.length > 2) { parts.unshift(head.slice(-2)); head = head.slice(0, -2); }
+      if (head) parts.unshift(head);
+      whole = parts.join(",") + "," + tail;
+    }
+    return (x < 0 && Number(s) !== 0 ? "-" : "") + whole + (frac ? "." + frac : "");
   }
+  function editDistance(a, b) {
+    a = [...a]; b = [...b];
+    if (a.join("") === b.join("")) return 0;
+    let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+    for (let i = 1; i <= a.length; i++) {
+      const cur = [i];
+      for (let j = 1; j <= b.length; j++) cur.push(Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] !== b[j - 1] ? 1 : 0)));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  const maxEdits = (n) => (n < 4 ? 0 : n < 8 ? 1 : 2);
   function phon(s) {
     s = s.toLowerCase().trim();
     for (const [a, b] of [["ksh", "x"], ["ks", "x"], ["sh", "s"], ["th", "t"], ["dh", "d"], ["bh", "b"], ["kh", "k"],
@@ -337,6 +395,28 @@
   const nocase = (a, b) => a.replace(/[A-Z]/g, (c) => c.toLowerCase()) === b.replace(/[A-Z]/g, (c) => c.toLowerCase());
 
   class LedgerError extends Error {}
+  class UnknownCustomer extends LedgerError {
+    constructor(name) { super(`no customer named '${name}' in the ledger`); this.customerName = name; }
+  }
+  class AmbiguousCustomer extends LedgerError {
+    constructor(name, candidates) { super(`'${name}' could be ${candidates.join(" or ")}`); this.customerName = name; this.candidates = candidates; }
+  }
+  /** Same as ledger._fuzzy_customer(): phonetic match, then (typos only) a small edit distance; ties are ambiguous. */
+  function fuzzyCustomer(name, customers, typos) {
+    const low = name.toLowerCase(), key = phon(name);
+    const same = customers.filter((c) => phon(c.name) === key);
+    if (same.length === 1) return same[0];
+    if (same.length > 1) throw new AmbiguousCustomer(name, same.map((c) => c.name));
+    if (!typos) return null;
+    let best = null, hits = [];
+    for (const c of customers) {
+      const d = Math.min(editDistance(low, c.name.toLowerCase()), editDistance(key, phon(c.name)));
+      if (d > maxEdits(Math.min([...low].length, [...c.name].length))) continue;
+      if (best === null || d < best) { best = d; hits = [c]; } else if (d === best) hits.push(c);
+    }
+    if (hits.length > 1) throw new AmbiguousCustomer(name, hits.map((c) => c.name));
+    return hits.length ? hits[0] : null;
+  }
 
   class Ledger {
     constructor(state, opts) {
@@ -377,14 +457,8 @@
       if (!name) throw new LedgerError("customer name is empty");
       const exact = this.s.customers.find((c) => nocase(c.name, name));
       if (exact) return exact;
-      const names = new Map();
-      for (const c of this.s.customers) names.set(c.name.toLowerCase(), c);
-      const close = getCloseMatches(name.toLowerCase(), [...names.keys()], 1, 0.8);
-      if (close.length) return names.get(close[0]);
-      const key = phon(name);
-      for (const [n, c] of names) {
-        if (phon(n) === key || (key.length >= 5 && ratio(phon(n), key) >= 0.88)) return c;
-      }
+      const match = fuzzyCustomer(name, this.s.customers, !create);
+      if (match) return match;
       if (!create) return null;
       const clean = name.slice(0, 1).toUpperCase() + name.slice(1);
       const c = { id: this._id(), name: clean, phone: null, created_at: this.now() };
@@ -433,7 +507,7 @@
     record_payment({ customer, amount }) {
       const p = Ledger._positive(amount);
       const c = this._findCustomer(customer, false);
-      if (!c) throw new LedgerError(`no customer named '${customer}' in the ledger`);
+      if (!c) throw new UnknownCustomer(customer.trim());
       this.s.txns.push({ id: this._id(), customer_id: c.id, kind: "payment", amount_paise: p, note: null, ts: this.now() });
       return { ok: true, action: "record_payment", customer: c.name, amount: rs(p), balance: rs(this._balance(c.id)) };
     }
@@ -448,18 +522,19 @@
       const cust = customer ? this._findCustomer(customer, true) : null;
       const name = it ? it.name : String(item).trim();
       this.s.sales.push({ id: this._id(), item_id: it ? it.id : null, item_name: name, qty: q, amount_paise: amt, customer_id: cust ? cust.id : null, ts });
-      let stock = null, low = null;
+      let stock = null, low = null, short = 0;
       if (it) {
-        it.stock_qty -= q;
-        this.s.moves.push({ id: this._id(), item_id: it.id, delta: -q, reason: "sale", ts });
-        stock = it.stock_qty; low = stock <= it.reorder_level;
+        // never below zero: the sale is recorded, the shortfall is flagged for a recount (see ledger.py)
+        [stock, short] = this._takeStock(it, q, "sale", ts);
+        low = stock <= it.reorder_level;
       }
       let bal = null;
       if (cust && amt) {
         this.s.txns.push({ id: this._id(), customer_id: cust.id, kind: "credit", amount_paise: amt, note: `${fmtQty(q)} x ${name}`, ts });
         bal = this._balance(cust.id);
       }
-      const out = { ok: true, action: "record_sale", item: name, known_item: !!it, qty: q, amount: rs(amt), stock_left: stock, low_stock: !!low };
+      const out = { ok: true, action: "record_sale", item: name, known_item: !!it, qty: q, amount: rs(amt), stock_left: stock, low_stock: !!low,
+        stock_mismatch: short > 0, short_by: short };
       if (cust) { out.customer = cust.name; out.balance = rs(bal); }
       return out;
     }
@@ -471,9 +546,22 @@
         it = { id: this._id(), name: String(item).trim(), aliases: "", unit: unit || "pc", price_paise: price ? paise(price) : null, stock_qty: 0, reorder_level: this.lowStockDefault };
         this.s.items.push(it); created = true;
       } else if (price) it.price_paise = paise(price);
-      it.stock_qty += q;
-      this.s.moves.push({ id: this._id(), item_id: it.id, delta: q, reason: q >= 0 ? "restock" : "adjust", ts: this.now() });
-      return { ok: true, action: "update_stock", item: it.name, delta: q, stock: it.stock_qty, created, low_stock: it.stock_qty <= it.reorder_level };
+      let short = 0;
+      if (q >= 0) {
+        it.stock_qty = Math.max(it.stock_qty, 0) + q;
+        this.s.moves.push({ id: this._id(), item_id: it.id, delta: q, reason: "restock", ts: this.now() });
+      } else {
+        short = this._takeStock(it, -q, "adjust", this.now())[1];
+      }
+      return { ok: true, action: "update_stock", item: it.name, delta: q, stock: it.stock_qty, created, low_stock: it.stock_qty <= it.reorder_level,
+        stock_mismatch: short > 0, short_by: short };
+    }
+    _takeStock(it, q, reason, ts) {
+      const have = Math.max(it.stock_qty, 0);
+      const taken = Math.min(q, have);
+      it.stock_qty = have - taken;
+      this.s.moves.push({ id: this._id(), item_id: it.id, delta: -taken, reason, ts });
+      return [it.stock_qty, q - taken];
     }
     query_balance({ customer }) {
       const c = this._findCustomer(customer, false);
@@ -576,6 +664,8 @@
     const missing = REQUIRED[name].filter((k) => !has(clean, k));
     if (missing.length) return { ok: false, action: name, args: clean, error: `bad arguments: missing ${missing.join(", ")}` };
     try { return ledger[name](clean); } catch (e) {
+      if (e instanceof AmbiguousCustomer) return { ok: false, action: name, args: clean, error: e.message, customer: e.customerName, ambiguous: e.candidates };
+      if (e instanceof UnknownCustomer) return { ok: false, action: name, args: clean, error: e.message, customer: e.customerName, unknown_customer: true };
       if (e instanceof LedgerError) return { ok: false, action: name, args: clean, error: e.message };
       throw e;
     }
@@ -588,6 +678,18 @@
       kn: "{customer} ಅವರ ಖಾತೆಗೆ {amount} ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ {balance} ರೂಪಾಯಿ.",
       ta: "{customer} கணக்கில் {amount} ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி {balance} ரூபாய்.",
       en: "Wrote {amount} rupees credit for {customer}. Total due {balance} rupees.",
+    },
+    add_credit_advance: {
+      hi: "{customer} के खाते में {amount} रुपये उधार लिखा। अब भी {advance} रुपये एडवांस जमा है।",
+      kn: "{customer} ಅವರ ಖಾತೆಗೆ {amount} ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಇನ್ನೂ {advance} ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+      ta: "{customer} கணக்கில் {amount} ரூபாய் கடன் எழுதப்பட்டது. இன்னும் {advance} ரூபாய் முன்பணம் உள்ளது.",
+      en: "Wrote {amount} rupees credit for {customer}. They still have {advance} rupees in advance.",
+    },
+    credit_sale_advance: {
+      hi: "{customer} को {qty} {item} उधार, {amount} रुपये। अब भी {advance} रुपये एडवांस जमा है।",
+      kn: "{customer} ಅವರಿಗೆ {qty} {item} ಸಾಲ, {amount} ರೂಪಾಯಿ. ಇನ್ನೂ {advance} ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+      ta: "{customer} க்கு {qty} {item} கடன், {amount} ரூபாய். இன்னும் {advance} ரூபாய் முன்பணம் உள்ளது.",
+      en: "{qty} {item} on credit to {customer}, {amount} rupees. They still have {advance} rupees in advance.",
     },
     record_payment: {
       hi: "{customer} से {amount} रुपये मिले। अब बाकी {balance} रुपये।",
@@ -621,6 +723,24 @@
       hi: "ध्यान दें, {item} सिर्फ {stock} बचे हैं।", kn: "ಗಮನಿಸಿ, {item} ಕೇವಲ {stock} ಉಳಿದಿದೆ.",
       ta: "கவனிக்கவும், {item} {stock} மட்டுமே உள்ளது.", en: "Heads up, only {stock} {item} left.",
     },
+    out_of_stock: {
+      hi: "ध्यान दें, {item} खत्म हो गया है।", kn: "ಗಮನಿಸಿ, {item} ಮುಗಿದಿದೆ.",
+      ta: "கவனிக்கவும், {item} தீர்ந்துவிட்டது.", en: "Heads up, {item} is out of stock.",
+    },
+    stock_mismatch: {
+      hi: "स्टॉक में गड़बड़: रिकॉर्ड में {item} {short} कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।",
+      kn: "ಸ್ಟಾಕ್ ಹೊಂದಾಣಿಕೆ ಇಲ್ಲ: ಲೆಕ್ಕದಲ್ಲಿ {item} {short} ಕಡಿಮೆ ಇತ್ತು. ಸ್ಟಾಕ್ 0 ಎಂದು ಬರೆದಿದೆ, ದಯವಿಟ್ಟು ಮತ್ತೆ ಎಣಿಸಿ.",
+      ta: "ஸ்டாக் பொருந்தவில்லை: கணக்கில் {item} {short} குறைவாக இருந்தது. ஸ்டாக் 0 என பதிவு, மீண்டும் எண்ணவும்.",
+      en: "Stock mismatch: the ledger was {short} {item} short. Stock set to 0, please recount.",
+    },
+    ambiguous_customer: {
+      hi: "{customer} कौन? {options}? नाम दोबारा बोलिए।", kn: "{customer} ಯಾರು? {options}? ಹೆಸರನ್ನು ಮತ್ತೊಮ್ಮೆ ಹೇಳಿ.",
+      ta: "{customer} யார்? {options}? பெயரை மீண்டும் சொல்லுங்கள்.", en: "Which {customer}: {options}? Please say the name again.",
+    },
+    query_advance: {
+      hi: "{customer} का कुछ बाकी नहीं, {advance} रुपये एडवांस जमा है।", kn: "{customer} ಅವರ ಬಾಕಿ ಇಲ್ಲ, {advance} ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+      ta: "{customer} பாக்கி இல்லை, {advance} ரூபாய் முன்பணம் உள்ளது.", en: "{customer} owes nothing and has {advance} rupees in advance.",
+    },
     query_balance: {
       hi: "{customer} का कुल बाकी {balance} रुपये है।", kn: "{customer} ಅವರ ಒಟ್ಟು ಬಾಕಿ {balance} ರೂಪಾಯಿ.",
       ta: "{customer} மொத்த பாக்கி {balance} ரூபாய்.", en: "{customer} owes {balance} rupees.",
@@ -640,29 +760,41 @@
       ta: "மன்னிக்கவும், புரியவில்லை. மீண்டும் சொல்லுங்கள்.", en: "Sorry, I didn't catch that. Please say it again.",
     },
   };
-  const n = (x) => { if (x === null || x === undefined) return "?"; x = Number(x); return Number.isInteger(x) ? group(x, 0) : group(x, 2); };
+  const n = (x) => { if (x === null || x === undefined) return "?"; x = Number(x); return Number.isInteger(x) ? groupIn(x, 0) : groupIn(x, 2); };
+  const OR = { hi: " या ", kn: " ಅಥವಾ ", ta: " அல்லது ", en: " or " };
+  const stockN = (x) => n(Math.max(Number(x), 0)); // stock is never spoken as a negative number
+  function stockNote(result, stock, lang) {
+    if (result.stock_mismatch) return " " + fill(T.stock_mismatch[lang], { item: result.item, short: stockN(result.short_by || 0) });
+    if (stock !== null && stock !== undefined && Number(stock) <= 0) return " " + fill(T.out_of_stock[lang], { item: result.item });
+    if (result.low_stock && stock !== null && stock !== undefined) return " " + fill(T.low_stock[lang], { item: result.item, stock: stockN(stock) });
+    return "";
+  }
   const fill = (tpl, v) => tpl.replace(/\{(\w+)\}/g, (_, k) => (has(v, k) ? String(v[k]) : `{${k}}`));
 
   function confirm(result, lang) {
     lang = ["hi", "kn", "ta", "en"].includes(lang) ? lang : "hi";
-    if (!result.ok) return fill(T.error[lang], { error: result.error || "?" });
+    if (!result.ok) {
+      if (result.ambiguous) return fill(T.ambiguous_customer[lang], { customer: result.customer || "?", options: result.ambiguous.join(OR[lang]) });
+      if (result.unknown_customer) return fill(T.query_unknown[lang], { customer: result.customer || "?" });
+      return fill(T.error[lang], { error: result.error || "?" });
+    }
     const a = result.action;
     const v = {};
     for (const [k, val] of Object.entries(result)) v[k] = typeof val === "number" ? n(val) : val;
+    const hasStock = result.stock_left !== null && result.stock_left !== undefined;
+    if (a === "record_sale" && result.customer && (result.balance || 0) < 0)
+      return fill(T.credit_sale_advance[lang], { ...v, advance: n(-result.balance) }) + (hasStock ? stockNote(result, result.stock_left, lang) : "");
     if (a === "record_sale") {
       const key = result.customer ? "credit_sale" : (result.amount !== null && result.amount !== undefined ? "record_sale" : "record_sale_noprice");
       let text = fill(T[key][lang], v);
-      if (result.low_stock && result.stock_left !== null && result.stock_left !== undefined)
-        text += " " + fill(T.low_stock[lang], { item: result.item, stock: n(result.stock_left) });
+      if (result.stock_left !== null && result.stock_left !== undefined) text += stockNote(result, result.stock_left, lang);
       return text;
     }
-    if (a === "update_stock") {
-      let text = fill(T.update_stock[lang], v);
-      if (result.low_stock) text += " " + fill(T.low_stock[lang], { item: result.item, stock: n(result.stock) });
-      return text;
-    }
+    if (a === "update_stock") return fill(T.update_stock[lang], { ...v, stock: stockN(result.stock) }) + stockNote(result, result.stock, lang);
+    if (a === "add_credit" && (result.balance || 0) < 0) return fill(T.add_credit_advance[lang], { ...v, advance: n(-result.balance) });
     if (a === "record_payment" && (result.balance || 0) < 0) return fill(T.payment_advance[lang], { ...v, advance: n(-result.balance) });
     if (a === "query_balance" && !result.known) return fill(T.query_unknown[lang], v);
+    if (a === "query_balance" && (result.balance || 0) < 0) return fill(T.query_advance[lang], { ...v, advance: n(-result.balance) });
     return fill(T[a][lang], v);
   }
   const notUnderstood = (lang) => (T.not_understood[lang] || T.not_understood.hi);
@@ -687,5 +819,5 @@
     }
   }
 
-  return { parse, detectLang, ratio, getCloseMatches, Ledger, LedgerError, runTool, confirm, notUnderstood, Agent, REMINDER_TEMPLATES, DEMO_ITEMS };
+  return { parse, detectLang, normalizeNumbers, groupIn, ratio, getCloseMatches, Ledger, LedgerError, UnknownCustomer, AmbiguousCustomer, runTool, confirm, notUnderstood, Agent, REMINDER_TEMPLATES, DEMO_ITEMS };
 });

@@ -335,6 +335,175 @@
    ]
   },
   {
+   "text": "Sures 50 kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Sures",
+      "amount": 50.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 1,200 kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 1200.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ramesh 1,20,000 kotru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 120000.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh 75 kottidaare",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 75.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 60 saala kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 60.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "9 Toor dal maaratu aaytu",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Toor Dal 1kg",
+      "qty": 9.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh 50 ಕೊಟ್ಟರು",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 50.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 200 ವಾಪಸ್ ಕೊಟ್ಟ",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 200.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Murugan 80 koduthaar",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 80.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Murugan 40 கொடுத்தார்",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 40.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ne 1,500 de diye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 1500.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "7 Surf Excel bik gaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 7.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Fatima ने 90 लौटाए",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Fatima",
+      "amount": 90.0
+     }
+    }
+   ]
+  },
+  {
    "text": "Laxmi ne 100 jama kiye",
    "lang": "hi",
    "calls": [
@@ -362,7 +531,15 @@
   {
    "text": "Sures 50 kottru",
    "lang": "kn",
-   "calls": []
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Sures",
+      "amount": 50.0
+     }
+    }
+   ]
   },
   {
    "text": "5 Haldiram bhujia aaye",
@@ -433,7 +610,15 @@
   {
    "text": "Nobody 50 jama",
    "lang": "hi",
-   "calls": []
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Nobody",
+      "amount": 50.0
+     }
+    }
+   ]
   },
   {
    "text": "aaj ka hisaab",
@@ -651,7 +836,15 @@
   {
    "text": "Lakshmi 1,200 kottru",
    "lang": "kn",
-   "calls": []
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 1200.0
+     }
+    }
+   ]
   },
   {
    "text": "2.5 sugar bik gaye",
@@ -708,6 +901,243 @@
     {
      "tool": "daily_summary",
      "args": {}
+    }
+   ]
+  },
+  {
+   "text": "Sures ka kitna baaki",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Sures"
+     }
+    }
+   ]
+  },
+  {
+   "text": "Sures eshtu baaki",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Sures"
+     }
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 40 kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 40.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Fatima ko 2 Maggi diye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 2.0,
+      "customer": "Fatima"
+     }
+    }
+   ]
+  },
+  {
+   "text": "Laksmi 10 kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Laksmi",
+      "amount": 10.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 12,34,567 kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 1234567.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh 25 ವಾಪಸ್ ಕೊಟ್ಟ",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 25.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Murugan 30 kuduthaanga",
+   "lang": "ta",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 30.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Fatima ने 15 लौटाए",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Fatima",
+      "amount": 15.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Rajesh ka 40 udhaar",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Rajesh",
+      "amount": 40.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Raesh 10 kottru",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Raesh",
+      "amount": 10.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Sur 5 jama",
+   "lang": "hi",
+   "calls": []
+  },
+  {
+   "text": "ಸುರೇಶ್ 50 ಕೊಟ್ಟರು",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "ಸುರೇಶ್",
+      "amount": 50.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "8 Surf Excel bik gaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 8.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Surf Excel ಮಾರಾಟ",
+   "lang": "kn",
+   "calls": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 1
+     }
+    }
+   ]
+  },
+  {
+   "text": "5 Fortune oil kharab, stock se hatao",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Fortune Sunflower Oil 1L",
+      "qty": -5.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "20 Fortune oil kharab",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Fortune Sunflower Oil 1L",
+      "qty": -20.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "3 Surf Excel aaye",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 3.0
+     }
+    }
+   ]
+  },
+  {
+   "text": "Suresh ka kitna baaki",
+   "lang": "hi",
+   "calls": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     }
     }
    ]
   }
@@ -1092,9 +1522,204 @@
    ]
   },
   {
+   "text": "Sures 50 kottru",
+   "lang": "kn",
+   "reply": "Suresh ಅವರಿಂದ 50 ರೂಪಾಯಿ ಬಂದಿದೆ. ಈಗ ಬಾಕಿ 300 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Sures",
+      "amount": 50.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 1,200 kottru",
+   "lang": "kn",
+   "reply": "Lakshmi ಅವರಿಂದ 1,200 ರೂಪಾಯಿ ಬಂದಿದೆ. ಅವರ 1,000 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 1200.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ramesh 1,20,000 kotru",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರಿಂದ 1,20,000 ರೂಪಾಯಿ ಬಂದಿದೆ. ಅವರ 1,19,020 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 120000.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh 75 kottidaare",
+   "lang": "kn",
+   "reply": "Suresh ಅವರಿಂದ 75 ರೂಪಾಯಿ ಬಂದಿದೆ. ಈಗ ಬಾಕಿ 225 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 75.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 60 saala kottru",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 60 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಇನ್ನೂ 1,18,960 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 60.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "9 Toor dal maaratu aaytu",
+   "lang": "kn",
+   "reply": "9 Toor Dal 1kg ಮಾರಾಟ ದಾಖಲಾಗಿದೆ, 1,440 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Toor Dal 1kg",
+      "qty": 9.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh 50 ಕೊಟ್ಟರು",
+   "lang": "kn",
+   "reply": "Suresh ಅವರಿಂದ 50 ರೂಪಾಯಿ ಬಂದಿದೆ. ಈಗ ಬಾಕಿ 175 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 50.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 200 ವಾಪಸ್ ಕೊಟ್ಟ",
+   "lang": "kn",
+   "reply": "Lakshmi ಅವರಿಂದ 200 ರೂಪಾಯಿ ಬಂದಿದೆ. ಅವರ 1,200 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 200.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Murugan 80 koduthaar",
+   "lang": "ta",
+   "reply": "Murugan இடமிருந்து 80 ரூபாய் வந்தது. அவர்களுக்கு 30 ரூபாய் முன்பணம் உள்ளது.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 80.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Murugan 40 கொடுத்தார்",
+   "lang": "ta",
+   "reply": "Murugan இடமிருந்து 40 ரூபாய் வந்தது. அவர்களுக்கு 70 ரூபாய் முன்பணம் உள்ளது.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 40.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Ramesh ne 1,500 de diye",
+   "lang": "hi",
+   "reply": "Ramesh से 1,500 रुपये मिले। उनका 1,20,460 रुपये एडवांस जमा है।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 1500.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "7 Surf Excel bik gaye",
+   "lang": "hi",
+   "reply": "7 Surf Excel 1kg की बिक्री दर्ज, 980 रुपये। स्टॉक में गड़बड़: रिकॉर्ड में Surf Excel 1kg 3 कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 7.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Fatima ने 90 लौटाए",
+   "lang": "hi",
+   "reply": "Fatima से 90 रुपये मिले। उनका 60 रुपये एडवांस जमा है।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Fatima",
+      "amount": 90.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
    "text": "Laxmi ne 100 jama kiye",
    "lang": "hi",
-   "reply": "Lakshmi से 100 रुपये मिले। अब बाकी 100 रुपये।",
+   "reply": "Lakshmi से 100 रुपये मिले। उनका 1,300 रुपये एडवांस जमा है।",
    "actions": [
     {
      "tool": "record_payment",
@@ -1109,7 +1734,7 @@
   {
    "text": "Ramesh ka kitna baaki",
    "lang": "hi",
-   "reply": "Ramesh का कुल बाकी 980 रुपये है।",
+   "reply": "Ramesh का कुछ बाकी नहीं, 1,20,460 रुपये एडवांस जमा है।",
    "actions": [
     {
      "tool": "query_balance",
@@ -1123,8 +1748,17 @@
   {
    "text": "Sures 50 kottru",
    "lang": "kn",
-   "reply": "ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. ಮತ್ತೊಮ್ಮೆ ಹೇಳಿ.",
-   "actions": []
+   "reply": "Suresh ಅವರಿಂದ 50 ರೂಪಾಯಿ ಬಂದಿದೆ. ಈಗ ಬಾಕಿ 125 ರೂಪಾಯಿ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Sures",
+      "amount": 50.0
+     },
+     "ok": true
+    }
+   ]
   },
   {
    "text": "5 Haldiram bhujia aaye",
@@ -1174,7 +1808,7 @@
   {
    "text": "Fatima ko 2 doodh udhaar",
    "lang": "hi",
-   "reply": "Fatima को 2 Amul Milk 500ml उधार, 54 रुपये। कुल बाकी 84 रुपये।",
+   "reply": "Fatima को 2 Amul Milk 500ml उधार, 54 रुपये। अब भी 6 रुपये एडवांस जमा है।",
    "actions": [
     {
      "tool": "record_sale",
@@ -1205,13 +1839,22 @@
   {
    "text": "Nobody 50 jama",
    "lang": "hi",
-   "reply": "माफ़ कीजिए, समझ नहीं आया। फिर से बोलिए।",
-   "actions": []
+   "reply": "Nobody नाम का कोई खाता नहीं मिला।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Nobody",
+      "amount": 50.0
+     },
+     "ok": false
+    }
+   ]
   },
   {
    "text": "aaj ka hisaab",
    "lang": "hi",
-   "reply": "आज 11 बिक्री, कुल 1,334 रुपये। उधार दिया 1,514, वसूली 1,370। कुल बाकी 1,694 रुपये।",
+   "reply": "आज 13 बिक्री, कुल 3,754 रुपये। उधार दिया 1,574, वसूली 1,24,705। कुल बाकी 255 रुपये।",
    "actions": [
     {
      "tool": "daily_summary",
@@ -1223,7 +1866,7 @@
   {
    "text": "Murugan kku 75 kadan",
    "lang": "ta",
-   "reply": "Murugan கணக்கில் 75 ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி 125 ரூபாய்.",
+   "reply": "Murugan கணக்கில் 75 ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி 5 ரூபாய்.",
    "actions": [
     {
      "tool": "add_credit",
@@ -1238,7 +1881,7 @@
   {
    "text": "Muruganukku 30 kadan",
    "lang": "ta",
-   "reply": "Murugan கணக்கில் 30 ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி 155 ரூபாய்.",
+   "reply": "Murugan கணக்கில் 30 ரூபாய் கடன் எழுதப்பட்டது. மொத்த பாக்கி 35 ரூபாய்.",
    "actions": [
     {
      "tool": "add_credit",
@@ -1269,7 +1912,7 @@
   {
    "text": "Rs 60 Ramesh ne wapas kiye",
    "lang": "hi",
-   "reply": "Ramesh से 60 रुपये मिले। अब बाकी 920 रुपये।",
+   "reply": "Ramesh से 60 रुपये मिले। उनका 1,20,520 रुपये एडवांस जमा है।",
    "actions": [
     {
      "tool": "record_payment",
@@ -1284,7 +1927,7 @@
   {
    "text": "4 Surf Excel bik gaye",
    "lang": "hi",
-   "reply": "4 Surf Excel 1kg की बिक्री दर्ज, 560 रुपये। ध्यान दें, Surf Excel 1kg सिर्फ 0 बचे हैं।",
+   "reply": "4 Surf Excel 1kg की बिक्री दर्ज, 560 रुपये। स्टॉक में गड़बड़: रिकॉर्ड में Surf Excel 1kg 4 कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।",
    "actions": [
     {
      "tool": "record_sale",
@@ -1299,7 +1942,7 @@
   {
    "text": "1 Surf Excel bik gaya",
    "lang": "hi",
-   "reply": "1 Surf Excel 1kg की बिक्री दर्ज, 140 रुपये। ध्यान दें, Surf Excel 1kg सिर्फ -1 बचे हैं।",
+   "reply": "1 Surf Excel 1kg की बिक्री दर्ज, 140 रुपये। स्टॉक में गड़बड़: रिकॉर्ड में Surf Excel 1kg 1 कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।",
    "actions": [
     {
      "tool": "record_sale",
@@ -1329,7 +1972,7 @@
   {
    "text": "Suresh ne 400 jama kiye",
    "lang": "hi",
-   "reply": "Suresh से 400 रुपये मिले। उनका 50 रुपये एडवांस जमा है।",
+   "reply": "Suresh से 400 रुपये मिले। उनका 275 रुपये एडवांस जमा है।",
    "actions": [
     {
      "tool": "record_payment",
@@ -1344,7 +1987,7 @@
   {
    "text": "Suresh ka kitna baaki hai",
    "lang": "hi",
-   "reply": "Suresh का कुल बाकी -50 रुपये है।",
+   "reply": "Suresh का कुछ बाकी नहीं, 275 रुपये एडवांस जमा है।",
    "actions": [
     {
      "tool": "query_balance",
@@ -1358,7 +2001,7 @@
   {
    "text": "Ramesh ಅವರಿಗೆ 20 ಸಾಲ",
    "lang": "kn",
-   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 20 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ 940 ರೂಪಾಯಿ.",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 20 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಇನ್ನೂ 1,20,500 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
    "actions": [
     {
      "tool": "add_credit",
@@ -1373,7 +2016,7 @@
   {
    "text": "Lakshmi ने 50 दिए",
    "lang": "hi",
-   "reply": "Lakshmi से 50 रुपये मिले। अब बाकी 50 रुपये।",
+   "reply": "Lakshmi से 50 रुपये मिले। उनका 1,350 रुपये एडवांस जमा है।",
    "actions": [
     {
      "tool": "record_payment",
@@ -1388,7 +2031,7 @@
   {
    "text": "Murugan எவ்வளவு பாக்கி",
    "lang": "ta",
-   "reply": "Murugan மொத்த பாக்கி 155 ரூபாய்.",
+   "reply": "Murugan மொத்த பாக்கி 35 ரூபாய்.",
    "actions": [
     {
      "tool": "query_balance",
@@ -1408,7 +2051,7 @@
   {
    "text": "summary",
    "lang": "en",
-   "reply": "Today 15 sales, 2,214 rupees. Credit given 1,639, collected 1,880. Total outstanding 1,359 rupees.",
+   "reply": "Today 17 sales, 4,634 rupees. Credit given 1,699, collected 1,25,215. Total outstanding 165 rupees.",
    "actions": [
     {
      "tool": "daily_summary",
@@ -1420,7 +2063,7 @@
   {
    "text": "10 Toor dal kharab, stock se hatao",
    "lang": "hi",
-   "reply": "Toor Dal 1kg का स्टॉक अब 8।",
+   "reply": "Toor Dal 1kg का स्टॉक अब 0। स्टॉक में गड़बड़: रिकॉर्ड में Toor Dal 1kg 1 कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।",
    "actions": [
     {
      "tool": "update_stock",
@@ -1435,7 +2078,7 @@
   {
    "text": "Rameshge 10 saala mattu 1 sakkare maaratu",
    "lang": "kn",
-   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 10 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಒಟ್ಟು ಬಾಕಿ 950 ರೂಪಾಯಿ. 1 Sugar 1kg ಮಾರಾಟ ದಾಖಲಾಗಿದೆ, 46 ರೂಪಾಯಿ.",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 10 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಇನ್ನೂ 1,20,490 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ. 1 Sugar 1kg ಮಾರಾಟ ದಾಖಲಾಗಿದೆ, 46 ರೂಪಾಯಿ.",
    "actions": [
     {
      "tool": "add_credit",
@@ -1458,8 +2101,17 @@
   {
    "text": "Lakshmi 1,200 kottru",
    "lang": "kn",
-   "reply": "ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. ಮತ್ತೊಮ್ಮೆ ಹೇಳಿ.",
-   "actions": []
+   "reply": "Lakshmi ಅವರಿಂದ 1,200 ರೂಪಾಯಿ ಬಂದಿದೆ. ಅವರ 2,550 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 1200.0
+     },
+     "ok": true
+    }
+   ]
   },
   {
    "text": "2.5 sugar bik gaye",
@@ -1508,7 +2160,7 @@
   {
    "text": "indina lekka",
    "lang": "kn",
-   "reply": "ಇಂದು 17 ಮಾರಾಟ, ಒಟ್ಟು 2,375 ರೂಪಾಯಿ. ಸಾಲ 1,748.50, ವಸೂಲಿ 1,880. ಒಟ್ಟು ಬಾಕಿ 1,468.50 ರೂಪಾಯಿ.",
+   "reply": "ಇಂದು 19 ಮಾರಾಟ, ಒಟ್ಟು 4,795 ರೂಪಾಯಿ. ಸಾಲ 1,808.50, ವಸೂಲಿ 1,26,415. ಒಟ್ಟು ಬಾಕಿ 264.50 ರೂಪಾಯಿ.",
    "actions": [
     {
      "tool": "daily_summary",
@@ -1520,7 +2172,7 @@
   {
    "text": "inniki kanakku",
    "lang": "ta",
-   "reply": "இன்று 17 விற்பனை, மொத்தம் 2,375 ரூபாய். கடன் 1,748.50, வசூல் 1,880. மொத்த பாக்கி 1,468.50 ரூபாய்.",
+   "reply": "இன்று 19 விற்பனை, மொத்தம் 4,795 ரூபாய். கடன் 1,808.50, வசூல் 1,26,415. மொத்த பாக்கி 264.50 ரூபாய்.",
    "actions": [
     {
      "tool": "daily_summary",
@@ -1528,30 +2180,305 @@
      "ok": true
     }
    ]
+  },
+  {
+   "text": "Sures ka kitna baaki",
+   "lang": "hi",
+   "reply": "Suresh का कुछ बाकी नहीं, 275 रुपये एडवांस जमा है।",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Sures"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Sures eshtu baaki",
+   "lang": "kn",
+   "reply": "Suresh ಅವರ ಬಾಕಿ ಇಲ್ಲ, 275 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Sures"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Rameshge 40 kottru",
+   "lang": "kn",
+   "reply": "Ramesh ಅವರ ಖಾತೆಗೆ 40 ರೂಪಾಯಿ ಸಾಲ ಬರೆದಿದೆ. ಇನ್ನೂ 1,20,450 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Ramesh",
+      "amount": 40.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Fatima ko 2 Maggi diye",
+   "lang": "hi",
+   "reply": "Fatima को 2 Maggi Noodles उधार, 28 रुपये। कुल बाकी 22 रुपये।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Maggi Noodles",
+      "qty": 2.0,
+      "customer": "Fatima"
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Laksmi 10 kottru",
+   "lang": "kn",
+   "reply": "Lakshmi ಅವರಿಂದ 10 ರೂಪಾಯಿ ಬಂದಿದೆ. ಅವರ 2,560 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Laksmi",
+      "amount": 10.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Lakshmi 12,34,567 kottru",
+   "lang": "kn",
+   "reply": "Lakshmi ಅವರಿಂದ 12,34,567 ರೂಪಾಯಿ ಬಂದಿದೆ. ಅವರ 12,37,127 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Lakshmi",
+      "amount": 1234567.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh 25 ವಾಪಸ್ ಕೊಟ್ಟ",
+   "lang": "kn",
+   "reply": "Suresh ಅವರಿಂದ 25 ರೂಪಾಯಿ ಬಂದಿದೆ. ಅವರ 300 ರೂಪಾಯಿ ಮುಂಗಡ ಇದೆ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Suresh",
+      "amount": 25.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Murugan 30 kuduthaanga",
+   "lang": "ta",
+   "reply": "Murugan இடமிருந்து 30 ரூபாய் வந்தது. இப்போது பாக்கி 5 ரூபாய்.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Murugan",
+      "amount": 30.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Fatima ने 15 लौटाए",
+   "lang": "hi",
+   "reply": "Fatima से 15 रुपये मिले। अब बाकी 7 रुपये।",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Fatima",
+      "amount": 15.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Rajesh ka 40 udhaar",
+   "lang": "hi",
+   "reply": "Rajesh के खाते में 40 रुपये उधार लिखा। कुल बाकी 40 रुपये।",
+   "actions": [
+    {
+     "tool": "add_credit",
+     "args": {
+      "customer": "Rajesh",
+      "amount": 40.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Raesh 10 kottru",
+   "lang": "kn",
+   "reply": "Raesh ಯಾರು? Ramesh ಅಥವಾ Rajesh? ಹೆಸರನ್ನು ಮತ್ತೊಮ್ಮೆ ಹೇಳಿ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "Raesh",
+      "amount": 10.0
+     },
+     "ok": false
+    }
+   ]
+  },
+  {
+   "text": "Sur 5 jama",
+   "lang": "hi",
+   "reply": "माफ़ कीजिए, समझ नहीं आया। फिर से बोलिए।",
+   "actions": []
+  },
+  {
+   "text": "ಸುರೇಶ್ 50 ಕೊಟ್ಟರು",
+   "lang": "kn",
+   "reply": "ಸುರೇಶ್ ಹೆಸರಿನ ಖಾತೆ ಸಿಗಲಿಲ್ಲ.",
+   "actions": [
+    {
+     "tool": "record_payment",
+     "args": {
+      "customer": "ಸುರೇಶ್",
+      "amount": 50.0
+     },
+     "ok": false
+    }
+   ]
+  },
+  {
+   "text": "8 Surf Excel bik gaye",
+   "lang": "hi",
+   "reply": "8 Surf Excel 1kg की बिक्री दर्ज, 1,120 रुपये। स्टॉक में गड़बड़: रिकॉर्ड में Surf Excel 1kg 8 कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 8.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Surf Excel ಮಾರಾಟ",
+   "lang": "kn",
+   "reply": "1 Surf Excel 1kg ಮಾರಾಟ ದಾಖಲಾಗಿದೆ, 140 ರೂಪಾಯಿ. ಸ್ಟಾಕ್ ಹೊಂದಾಣಿಕೆ ಇಲ್ಲ: ಲೆಕ್ಕದಲ್ಲಿ Surf Excel 1kg 1 ಕಡಿಮೆ ಇತ್ತು. ಸ್ಟಾಕ್ 0 ಎಂದು ಬರೆದಿದೆ, ದಯವಿಟ್ಟು ಮತ್ತೆ ಎಣಿಸಿ.",
+   "actions": [
+    {
+     "tool": "record_sale",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 1
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "5 Fortune oil kharab, stock se hatao",
+   "lang": "hi",
+   "reply": "Fortune Sunflower Oil 1L का स्टॉक अब 3। ध्यान दें, Fortune Sunflower Oil 1L सिर्फ 3 बचे हैं।",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Fortune Sunflower Oil 1L",
+      "qty": -5.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "20 Fortune oil kharab",
+   "lang": "hi",
+   "reply": "Fortune Sunflower Oil 1L का स्टॉक अब 0। स्टॉक में गड़बड़: रिकॉर्ड में Fortune Sunflower Oil 1L 17 कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Fortune Sunflower Oil 1L",
+      "qty": -20.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "3 Surf Excel aaye",
+   "lang": "hi",
+   "reply": "Surf Excel 1kg का स्टॉक अब 3।",
+   "actions": [
+    {
+     "tool": "update_stock",
+     "args": {
+      "item": "Surf Excel 1kg",
+      "qty": 3.0
+     },
+     "ok": true
+    }
+   ]
+  },
+  {
+   "text": "Suresh ka kitna baaki",
+   "lang": "hi",
+   "reply": "Suresh का कुछ बाकी नहीं, 300 रुपये एडवांस जमा है।",
+   "actions": [
+    {
+     "tool": "query_balance",
+     "args": {
+      "customer": "Suresh"
+     },
+     "ok": true
+    }
+   ]
   }
  ],
  "final": {
   "customers": {
-   "Ramesh": 950.0,
-   "Murugan": 155.0,
    "Vikram": 130.0,
    "Ravi": 99.5,
-   "Fatima": 84.0,
-   "Lakshmi": 50.0,
-   "Suresh": -50.0
+   "Rajesh": 40.0,
+   "Fatima": 7.0,
+   "Murugan": 5.0,
+   "Suresh": -300.0,
+   "Ramesh": -120450.0,
+   "Lakshmi": -1237127.0
   },
   "items": {
    "Aashirvaad Atta 5kg": 10.0,
    "Amul Milk 500ml": 16.0,
-   "Fortune Sunflower Oil 1L": 8.0,
+   "Fortune Sunflower Oil 1L": 0.0,
    "Haldiram bhujia": 3.0,
-   "Maggi Noodles": 54.0,
+   "Maggi Noodles": 52.0,
    "Parle-G": 40.0,
    "Sugar 1kg": 1.5,
-   "Surf Excel 1kg": -1.0,
+   "Surf Excel 1kg": 3.0,
    "Tata Salt 1kg": 10.0,
-   "Toor Dal 1kg": 8.0
+   "Toor Dal 1kg": 0.0
   },
-  "sales": 17
+  "sales": 22
  }
 }

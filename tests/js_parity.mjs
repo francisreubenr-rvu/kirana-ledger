@@ -20,7 +20,7 @@ const normCalls = (calls) => calls.map((c) => ({ tool: c.tool, args: Object.from
 const fresh = () => { const L = new K.Ledger(null, { shopName: "Sri Lakshmi Kirana" }); L.seedDemo(true); return L; };
 const lookupFor = (L) => (q) => { const r = L.findItem(q); return r ? r.name : null; };
 
-// 1. expected actions for the 24 samples (fresh seeded ledger, like the pytest fixture)
+// 1. expected actions for every sample (fresh seeded ledger, like the pytest fixture)
 {
   const L = fresh();
   const customers = L.snapshot().customers.map((c) => c.name);

@@ -27,6 +27,13 @@ EXTRA = [
     "Murugan எவ்வளவு பாக்கி", "hello there", "summary", "10 Toor dal kharab, stock se hatao",
     "Rameshge 10 saala mattu 1 sakkare maaratu", "Lakshmi 1,200 kottru", "2.5 sugar bik gaye",
     "Ravi ka 99.50 udhaar", "Ravi ka kitna baaki", "indina lekka", "inniki kanakku",
+    # Kannada/Tamil/Hindi payment forms, Indian digit grouping, fuzzy + ambiguous names
+    "Sures ka kitna baaki", "Sures eshtu baaki", "Rameshge 40 kottru", "Fatima ko 2 Maggi diye", "Laksmi 10 kottru",
+    "Lakshmi 12,34,567 kottru", "Suresh 25 ವಾಪಸ್ ಕೊಟ್ಟ", "Murugan 30 kuduthaanga", "Fatima ने 15 लौटाए",
+    "Rajesh ka 40 udhaar", "Raesh 10 kottru", "Sur 5 jama", "ಸುರೇಶ್ 50 ಕೊಟ್ಟರು",
+    # stock never below zero
+    "8 Surf Excel bik gaye", "Surf Excel ಮಾರಾಟ", "5 Fortune oil kharab, stock se hatao", "20 Fortune oil kharab",
+    "3 Surf Excel aaye", "Suresh ka kitna baaki",
 ]
 
 

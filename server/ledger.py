@@ -88,9 +88,20 @@ def _paise(rupees: float | int | str) -> int:
     return int(round(float(rupees) * 100))
 
 
+def group_in(x: float, digits: int = 0) -> str:
+    """Indian digit grouping: 1,200 / 12,000 / 1,20,000 / 12,34,567.89."""
+    s = f"{abs(x):.{digits}f}"
+    whole, _, frac = s.partition(".")
+    if len(whole) > 3:
+        head, tail = whole[:-3], whole[-3:]
+        head = ",".join([head[max(i - 2, 0):i] for i in range(len(head), 0, -2)][::-1])
+        whole = f"{head},{tail}"
+    return ("-" if x < 0 and float(s) != 0 else "") + whole + (f".{frac}" if frac else "")
+
+
 def _fmt_rs(paise: int) -> str:
     r = paise / 100
-    return f"₹{r:,.0f}" if r == int(r) else f"₹{r:,.2f}"
+    return f"₹{group_in(r)}" if r == int(r) else f"₹{group_in(r, 2)}"
 
 
 def _phon(s: str) -> str:
@@ -102,12 +113,75 @@ def _phon(s: str) -> str:
     return re.sub(r"(.)\1+", r"\1", s)
 
 
+def _fuzzy_customer(name: str, rows: list, typos: bool):
+    """Map a spoken/STT name onto one existing customer, conservatively.
+
+    1. same phonetic key (Sures/Suresh, Laxmi/Lakshmi, Muruhan stays separate);
+    2. only when `typos` (payments and balance queries, where the alternative is "no such customer"):
+       Levenshtein distance within _max_edits on the plain or phonetic spelling.
+    Credit entries pass typos=False, so "Rajesh" opens a new account instead of landing on Ramesh.
+    More than one customer at the best distance raises AmbiguousCustomer (the reply asks which one).
+    """
+    low, key = name.lower(), _phon(name)
+    same = [r for n, r in rows if _phon(n) == key]
+    if len(same) == 1:
+        return same[0]
+    if len(same) > 1:
+        raise AmbiguousCustomer(name, [n for n, r in rows if _phon(n) == key])
+    if not typos:
+        return None
+    best, hits = None, []
+    for n, r in rows:
+        d = min(_edit(low, n.lower()), _edit(key, _phon(n)))
+        if d > _max_edits(min(len(low), len(n))):
+            continue
+        if best is None or d < best:
+            best, hits = d, [(n, r)]
+        elif d == best:
+            hits.append((n, r))
+    if len(hits) > 1:
+        raise AmbiguousCustomer(name, [n for n, _ in hits])
+    return hits[0][1] if hits else None
+
+
 def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", s.lower())).strip()
 
 
+def _edit(a: str, b: str) -> int:
+    """Levenshtein distance (insert / delete / substitute, each 1)."""
+    if a == b:
+        return 0
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
+def _max_edits(n: int) -> int:
+    """Conservative typo budget for a name of n letters: none under 4, one for 4-7, two from 8."""
+    return 0 if n < 4 else (1 if n < 8 else 2)
+
+
 class LedgerError(ValueError):
     pass
+
+
+class UnknownCustomer(LedgerError):
+    def __init__(self, name: str):
+        self.name = name
+        super().__init__(f"no customer named {name!r} in the ledger")
+
+
+class AmbiguousCustomer(LedgerError):
+    """The spoken name is close to more than one customer; the agent asks which one instead of guessing."""
+
+    def __init__(self, name: str, candidates: list[str]):
+        self.name, self.candidates = name, candidates
+        super().__init__(f"{name!r} could be {' or '.join(candidates)}")
 
 
 class Ledger:
@@ -158,15 +232,10 @@ class Ledger:
         row = self.db.execute("SELECT * FROM customers WHERE name = ?", (name,)).fetchone()
         if row:
             return row
-        rows = self.db.execute("SELECT * FROM customers").fetchall()
-        names = {r["name"].lower(): r for r in rows}
-        close = difflib.get_close_matches(name.lower(), list(names), n=1, cutoff=0.8)
-        if close:
-            return names[close[0]]
-        key = _phon(name)
-        for n, r in names.items():
-            if _phon(n) == key or (len(key) >= 5 and difflib.SequenceMatcher(None, _phon(n), key).ratio() >= 0.88):
-                return r
+        rows = self.db.execute("SELECT * FROM customers ORDER BY id").fetchall()
+        match = _fuzzy_customer(name, [(r["name"], r) for r in rows], typos=not create)
+        if match is not None:
+            return match
         if not create:
             return None
         clean = name[:1].upper() + name[1:]
@@ -231,7 +300,7 @@ class Ledger:
         with self._lock, self.db:
             c = self._find_customer(customer, create=False)
             if c is None:
-                raise LedgerError(f"no customer named {customer!r} in the ledger")
+                raise UnknownCustomer(customer.strip())
             self.db.execute(
                 "INSERT INTO credit_txns(customer_id, kind, amount_paise, ts) VALUES (?,?,?,?)",
                 (c["id"], "payment", p, _now().isoformat()),
@@ -263,12 +332,11 @@ class Ledger:
                 (it["id"] if it else None, name, q, amt, cust["id"] if cust else None, ts),
             )
             stock = low = None
+            short = 0.0
             if it is not None:
-                self.db.execute("UPDATE items SET stock_qty = stock_qty - ? WHERE id = ?", (q, it["id"]))
-                self.db.execute(
-                    "INSERT INTO stock_moves(item_id, delta, reason, ts) VALUES (?,?,?,?)", (it["id"], -q, "sale", ts)
-                )
-                stock = self.db.execute("SELECT stock_qty FROM items WHERE id = ?", (it["id"],)).fetchone()[0]
+                # Never let stock go below zero. The sale itself is still recorded (the goods already left the
+                # counter and the money/udhaar is real); the shortfall is flagged so the owner recounts.
+                stock, short = _take_stock(self.db, it, q, "sale", ts)
                 low = stock <= it["reorder_level"]
             bal = None
             if cust is not None and amt:
@@ -280,6 +348,7 @@ class Ledger:
         out = {
             "ok": True, "action": "record_sale", "item": name, "known_item": it is not None, "qty": q,
             "amount": _rs(amt), "stock_left": stock, "low_stock": bool(low),
+            "stock_mismatch": short > 0, "short_by": short,
         }
         if cust is not None:
             out.update(customer=cust["name"], balance=_rs(bal))
@@ -306,15 +375,20 @@ class Ledger:
                 created = True
             elif price:
                 self.db.execute("UPDATE items SET price_paise = ? WHERE id = ?", (_paise(price), it["id"]))
-            self.db.execute("UPDATE items SET stock_qty = stock_qty + ? WHERE id = ?", (q, it["id"]))
-            self.db.execute(
-                "INSERT INTO stock_moves(item_id, delta, reason, ts) VALUES (?,?,?,?)",
-                (it["id"], q, "restock" if q >= 0 else "adjust", _now().isoformat()),
-            )
+            short = 0.0
+            if q >= 0:
+                self.db.execute("UPDATE items SET stock_qty = MAX(stock_qty, 0) + ? WHERE id = ?", (q, it["id"]))
+                self.db.execute(
+                    "INSERT INTO stock_moves(item_id, delta, reason, ts) VALUES (?,?,?,?)",
+                    (it["id"], q, "restock", _now().isoformat()),
+                )
+            else:  # removing more than the ledger holds: clamp at 0 and flag, same as an oversold sale
+                _, short = _take_stock(self.db, it, -q, "adjust", _now().isoformat())
             row = self.db.execute("SELECT * FROM items WHERE id = ?", (it["id"],)).fetchone()
         return {
             "ok": True, "action": "update_stock", "item": row["name"], "delta": q, "stock": row["stock_qty"],
             "created": created, "low_stock": row["stock_qty"] <= row["reorder_level"],
+            "stock_mismatch": short > 0, "short_by": short,
         }
 
     def query_balance(self, customer: str) -> dict:
@@ -449,6 +523,16 @@ class Ledger:
         if s["top_debtors"]:
             lines.append("Biggest dues: " + ", ".join(f"{d['customer']} {_fmt_rs(_paise(d['balance']))}" for d in s["top_debtors"][:3]))
         return "\n".join(lines)
+
+
+def _take_stock(db: sqlite3.Connection, it: sqlite3.Row, q: float, reason: str, ts: str) -> tuple[float, float]:
+    """Take q units out of stock without going below zero. Returns (stock left, shortfall)."""
+    have = max(float(db.execute("SELECT stock_qty FROM items WHERE id = ?", (it["id"],)).fetchone()[0]), 0.0)
+    taken = min(q, have)
+    left = have - taken
+    db.execute("UPDATE items SET stock_qty = ? WHERE id = ?", (left, it["id"]))
+    db.execute("INSERT INTO stock_moves(item_id, delta, reason, ts) VALUES (?,?,?,?)", (it["id"], -taken, reason, ts))
+    return left, q - taken
 
 
 def _fmt_qty(q: float) -> str:

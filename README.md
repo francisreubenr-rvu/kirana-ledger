@@ -25,7 +25,7 @@ plus one-tap credit-reminder messages.
 git clone https://github.com/francisreubenr-rvu/kirana-ledger.git && cd kirana-ledger
 python3 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
-pytest -q          # 88 tests, all offline
+pytest -q          # 159 tests, all offline
 ./run.sh           # open http://localhost:8000
 ```
 
@@ -64,7 +64,7 @@ see `PITCH.md` for how.
 cd kirana-ledger
 python3 -m venv .venv && . .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-pytest -q                                          # 88 tests
+pytest -q                                          # 159 tests
 ./run.sh                                           # or: python -m uvicorn server.main:app --host 0.0.0.0 --port 8000
 ```
 
@@ -191,7 +191,7 @@ docs/          GitHub Pages site: landing page (index.html) + in-browser demo (d
 fuzzy matching. To keep it honest:
 
 ```bash
-python scripts/make_js_golden.py   # records what the Python code does for 56 utterances (24 samples + variants)
+python scripts/make_js_golden.py   # records what the Python code does for 88 utterances (37 samples + variants)
 node tests/js_parity.mjs           # the JS port must match: tool calls, language, spoken replies, final ledger
 python scripts/check_site.py       # no broken local links, anchors or assets
 ```
@@ -225,13 +225,51 @@ Set up beforehand: server running, box on Wi-Fi, web page on the projector showi
 Backup if the network fails: `KIRANA_MOCK=1 ./run.sh` and run the same lines through the page's mock dropdown or
 `scripts/demo.py`. The parse → ledger → reply path is identical, only speech is canned.
 
+## Payment phrases, names and stock (how the offline parser decides)
+
+**Payments.** These count as "the customer paid the shop":
+
+| Language | Forms understood |
+|---|---|
+| Kannada | kottru / kottaru / kotru / koTTru, kottidaare, kottide, kotta, vaapas kotta, ಕೊಟ್ಟರು, ಕೊಟ್ರು, ಕೊಟ್ಟಿದ್ದಾರೆ, ಕೊಟ್ಟಿದೆ, ವಾಪಸ್ ಕೊಟ್ಟ |
+| Tamil | kuduthaar / koduthaar, kuduthaanga / koduthaanga, கொடுத்தார், கொடுத்தாங்க, கொடுத்தார்கள், திருப்பி |
+| Hindi | jama, wapas, de diye / diye / diya, chukaya, lautaye, दिए / दिया, लौटाए / लौटाया, चुकाए |
+| English | paid, returned |
+
+**The "kottru" ambiguity.** *Kottru* (and *diye*, *kuduthaar*) just means "gave". In a kirana it usually means the
+customer gave money, but it can also mean the shop gave goods on credit. The rule:
+
+- `<name> <amount> kottru` (bare name) → **payment received** from that customer. This is the default.
+- With a credit word (`saala`, `udhaar`, `kadan`) or a dative on the name (`Rameshge`, `Ramesh ge`, `Ramesh ko`,
+  `Muruganukku`) → **credit**: the shop gave it to them. `Rameshge 60 saala kottru` = ₹60 udhaar for Ramesh;
+  `Fatima ko 2 Maggi diye` = a credit sale.
+- Return verbs (`jama`, `wapas`/`ವಾಪಸ್`, `lautaye`) are always a payment.
+
+The spoken confirmation always says which way it went ("Suresh ಅವರಿಂದ 50 ರೂಪಾಯಿ ಬಂದಿದೆ" vs "…ಸಾಲ ಬರೆದಿದೆ"), so a wrong
+guess is heard immediately.
+
+**Amounts.** Indian digit grouping is understood (`1,200`, `1,20,000`, `12,34,567`) as well as `1,200,000`; a comma
+not inside a number still separates clauses. Replies and WhatsApp summaries use Indian grouping too.
+
+**Names.** STT drift is matched conservatively: first a phonetic key (Sures→Suresh, Laxmi→Lakshmi); then, for
+payments and balance queries only, at most 1 typo for 4–7 letter names and 2 for 8+ (Fatma→Fatima). If two
+customers are equally close the box does not guess; it asks ("Raesh ಯಾರು? Ramesh ಅಥವಾ Rajesh?") and writes
+nothing. Credit entries never use typo matching, so a new *Rajesh* opens his own khata instead of landing on Ramesh's.
+
+**Stock never goes below zero.** If a sale (or a damaged-stock removal) is for more than the ledger holds, the sale
+is **still recorded** (the goods have left the counter and the money or udhaar is real), stock is set to 0, and the
+reply flags a mismatch: *"स्टॉक में गड़बड़: रिकॉर्ड में Surf Excel 1kg 1 कम थे। स्टॉक 0 लिखा है, कृपया दोबारा गिनती करें।"*
+Refusing the sale would have been worse: the owner would have to repeat it after fixing stock, and a skipped credit
+sale silently loses udhaar. When stock reaches exactly 0 the reply says the item is finished. No reply, in any
+language, speaks a negative number (stock, or a balance in advance, which is read out as "advance").
+
 ## Known limits (v0)
 
 - The firmware has **not been compiled or run on hardware** yet. It targets the arduino-esp32 3.x `ESP_I2S` API.
 - Real Sarvam calls are untested without a key. Request shapes are pinned by tests against a fake HTTP transport.
-- Customer names are matched by spelling plus a crude phonetic key (Laxmi≈Lakshmi). Two different Rameshes need
-  a surname or a phone number. Names in native script (रमेश) are stored as heard by the rule parser; the LLM path
-  is told to write them in Latin script.
+- Customer names are matched by a phonetic key plus a small edit distance (see above). Two different Rameshes need
+  a surname or a phone number. Names in native script (ಸುರೇಶ್, रमेश) are not transliterated by the rule parser, so
+  they won't match a Latin-script khata offline; the LLM path is told to write them in Latin script.
 - The Kannada and Tamil confirmation/reminder strings need a native-speaker check.
 - No undo yet ("galti, cancel karo"). It's the obvious next tool.
 - Single shop, single device, no auth. Use on a LAN only.

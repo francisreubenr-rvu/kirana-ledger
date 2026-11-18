@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from .ledger import Ledger, LedgerError
+from .ledger import AmbiguousCustomer, Ledger, LedgerError, UnknownCustomer
 
 TOOLS: list[dict] = [
     {
@@ -27,7 +27,7 @@ TOOLS: list[dict] = [
         "type": "function",
         "function": {
             "name": "record_payment",
-            "description": "Customer paid back money they owed (jama / wapas / ಕೊಟ್ಟರು / கொடுத்தார்).",
+            "description": "Customer paid back money they owed (jama / wapas / lautaye / kottru / ಕೊಟ್ಟರು / ವಾಪಸ್ ಕೊಟ್ಟ / கொடுத்தார்).",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -113,6 +113,10 @@ def run_tool(ledger: Ledger, name: str, args: dict[str, Any] | str) -> dict:
     clean = {k: v for k, v in (args or {}).items() if k in allowed and v is not None and v != ""}
     try:
         return getattr(ledger, name)(**clean)
+    except AmbiguousCustomer as e:
+        return {"ok": False, "action": name, "args": clean, "error": str(e), "customer": e.name, "ambiguous": e.candidates}
+    except UnknownCustomer as e:
+        return {"ok": False, "action": name, "args": clean, "error": str(e), "customer": e.name, "unknown_customer": True}
     except LedgerError as e:
         return {"ok": False, "action": name, "args": clean, "error": str(e)}
     except TypeError as e:  # missing required arg
